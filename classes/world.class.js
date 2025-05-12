@@ -6,6 +6,12 @@ class World {
         new Chicken()
     ];
     light = new Light();
+    floor = new Floor();
+    water = new Water();
+    backgrounds = [
+        new Background("img/3. Background/Layers/3.Fondo 1/D1.png"),
+        new Background("img/3. Background/Layers/4.Fondo 2/D1.png")
+    ]
 
     ctx;
     canvas;
@@ -19,11 +25,18 @@ class World {
 
     draw() {
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
-        this.ctx.drawImage(this.charachter.img, this.charachter.x, this.charachter.y, this.charachter.width, this.charachter.height);
-        this.enemies.forEach(enemy => {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height)
-        })
-        this.ctx.drawImage(this.light.img, this.light.x, this.light.y, this.light.width, this.light.height)
+     
+        this.addToMap(this.water);
+        this.addToMap(this.light);
+        this.addObjectsToMap(this.backgrounds);
+
+
+        this.addToMap(this.floor);
+        this.addToMap(this.charachter);
+        this.addObjectsToMap(this.enemies);
+
+
+        
 
 
 
@@ -31,5 +44,15 @@ class World {
         requestAnimationFrame(function() {
             self.draw();
         });
+    }
+
+    addObjectsToMap(objects) {
+       objects.forEach(o => {
+            this.addToMap(o)
+        })
+    }
+
+    addToMap(object) {
+        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height)
     }
 }

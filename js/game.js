@@ -1,5 +1,7 @@
 let canvas;
 let world;
+let keyboard = new Keyboard();
+let button;
  
 
 function init() {
@@ -13,3 +15,9 @@ function init() {
     
 
 }
+
+window.addEventListener("keydown", (key) => {
+    button = key.key
+    console.log(button);
+    
+})

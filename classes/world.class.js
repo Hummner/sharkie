@@ -1,17 +1,7 @@
 class World {
     charachter = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ];
-    light = new Light();
-    floor = new Floor();
-    water = new Water();
-    backgrounds = [
-        new Background("img/3. Background/Layers/3.Fondo 1/D1.png"),
-        new Background("img/3. Background/Layers/4.Fondo 2/D1.png"),
-    ]
+
+    level = level1;
 
     ctx;
     canvas;
@@ -24,6 +14,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
@@ -36,14 +27,16 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
 
-        this.addToMap(this.water);
-        this.addToMap(this.light);
-        this.addObjectsToMap(this.backgrounds);
+
+        this.addObjectsToMap(this.level.light);
+        this.addObjectsToMap(this.level.backgrounds);
+        this.addObjectsToMap(this.level.coins);
 
 
-        this.addToMap(this.floor);
+
+
         this.addToMap(this.charachter);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);
 
 
@@ -57,24 +50,49 @@ class World {
         });
     }
 
+
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o)
         })
     }
 
+
     addToMap(object) {
         if (object.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(object.width, 0);
-            this.ctx.scale(-1, 1);
-            object.x =  object.x * -1;
+            this.flipImage(object);
 
         }
-        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        object.draw(this.ctx)
+        object.drawFrame(this.ctx)
+        object.drawFrameRed(this.ctx)
+
         if (object.otherDirection) {
-            this.ctx.restore();
-            object.x =  object.x * -1;
+            this.flipImageBack(object);
         }
+    }
+
+    flipImage(object) {
+        this.ctx.save();
+        this.ctx.translate(object.width, 0);
+        this.ctx.scale(-1, 1);
+        object.x = object.x * -1;
+    }
+
+    flipImageBack(object) {
+        this.ctx.restore();
+        object.x = object.x * -1;
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach(enemy => {
+                if (this.charachter.isColliding(enemy)) {
+                    this.charachter.hp -= 10;
+                    console.log(this.charachter.hp);
+                    
+                }    
+            })
+        }, 200);
     }
 }

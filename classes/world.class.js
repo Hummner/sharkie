@@ -1,5 +1,6 @@
 class World {
     charachter = new Character();
+    hpStatus = new StatusBar();
 
     level = level1;
 
@@ -19,6 +20,7 @@ class World {
 
     setWorld() {
         this.charachter.world = this
+  
     }
 
 
@@ -31,13 +33,17 @@ class World {
         this.addObjectsToMap(this.level.light);
         this.addObjectsToMap(this.level.backgrounds);
         this.addObjectsToMap(this.level.coins);
+        
 
 
 
 
         this.addToMap(this.charachter);
+        
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);
+
+        this.addToMap(this.hpStatus);
 
 
 
@@ -88,8 +94,9 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach(enemy => {
                 if (this.charachter.isColliding(enemy)) {
-                    this.charachter.hp -= 10;
-                    console.log(this.charachter.hp);
+                 
+                   this.charachter.hit();
+                   
                     
                 }    
             })

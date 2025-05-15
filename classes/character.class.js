@@ -1,10 +1,25 @@
 class Character extends MovableObject {
-    height = 200;
+    height = 250;
     width = 200;
-    y = 100;
+    y = 0;
     speed = 10;
     hp = 100;
     longIdle;
+
+    DEAD_IMAGES = [
+        "img/1.Sharkie/6.dead/1.Poisoned/1.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/2.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/3.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/4.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/5.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/6.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/7.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/8.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/9.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/10.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/11.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/12.png"
+    ]
     LONG_IDLE_IMAGES = [
         "img/1.Sharkie/2.Long_IDLE/i1.png",
         "img/1.Sharkie/2.Long_IDLE/i2.png",
@@ -50,14 +65,22 @@ class Character extends MovableObject {
         "img/1.Sharkie/3.Swim/6.png"
 
     ];
+
+    HURT_IMAGES = [
+        "img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
+        "img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
+        "img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
+        "img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
+        "img/1.Sharkie/5.Hurt/1.Poisoned/5.png"
+    ]
     speedY = 0;
     acceleration = 1;
 
      offset = {
-        top: 80,
-        bottom: 120,
-        left: 35,
-        right: 55
+        top: 140,
+        bottom: 60,
+        left: 50,
+        right: 45
     }
 
     applyGravity() {
@@ -72,7 +95,7 @@ class Character extends MovableObject {
     }
 
     isAboveGround() {
-        return this.y < 200;
+        return this.y < 100;
     }
 
 
@@ -86,8 +109,11 @@ class Character extends MovableObject {
         this.loadImages(this.WALKING_IMAGES);
         this.loadImages(this.IDLE_IMAGES);
         this.loadImages(this.LONG_IDLE_IMAGES);
+        this.loadImages(this.DEAD_IMAGES);
+        this.loadImages(this.HURT_IMAGES);
         this.applyGravity();
         this.animate();
+        // this.setPercentage(this.hp);
 
     }
 
@@ -107,7 +133,7 @@ class Character extends MovableObject {
                 this.otherDirection = true
             }
 
-            if (this.world.keyboard.UP && this.y > 50) {
+            if (this.world.keyboard.UP && this.y > 0) {
                 this.moveUp()
             }
 
@@ -116,7 +142,16 @@ class Character extends MovableObject {
 
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+
+            if (this.isDead()) {
+                this.playAnimation(this.DEAD_IMAGES)
+
+
+
+            } else if (this.isHurt()) {
+                this.playAnimation(this.HURT_IMAGES)
+
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.WALKING_IMAGES);
                
 
@@ -133,6 +168,10 @@ class Character extends MovableObject {
 
 
     }
+
+    
+
+   
 
 
   

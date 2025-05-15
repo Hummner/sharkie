@@ -1,13 +1,13 @@
 class Chicken extends MovableObject {
 
-    height = 120;
-    width = 120;
+    height = 70;
+    width = 110;
 
      offset = {
-        top: 0,
-        bottom: 30,
-        left: 0,
-        right: 10
+        top: 10,
+        bottom: 20,
+        left: 10,
+        right: 20
     }
     WALKING_IMAGES = [
         "img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png",

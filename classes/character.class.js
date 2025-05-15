@@ -113,7 +113,7 @@ class Character extends MovableObject {
         this.loadImages(this.HURT_IMAGES);
         this.applyGravity();
         this.animate();
-        // this.setPercentage(this.hp);
+    
 
     }
 
@@ -124,12 +124,14 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight()
+                this.moveBackgroundRight();
                 this.otherDirection = false
 
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft()
+                this.moveLeft();
+                this.moveBackgroundLeft();
                 this.otherDirection = true
             }
 

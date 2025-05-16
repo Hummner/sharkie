@@ -1,6 +1,7 @@
 class World {
     charachter = new Character();
     hpStatus = new StatusBar();
+    ammo = [];
 
     level = level1;
 
@@ -15,12 +16,42 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
+    }
+
+    run() {
+        setInterval(() => {
+            this.checkCollisions();
+            this.throwAmmo();
+        }, 200);
+
+
+
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach(enemy => {
+            if (this.charachter.isColliding(enemy)) {
+
+                this.charachter.hit();
+
+
+            }
+        })
+    }
+
+    throwAmmo() {
+
+        if (this.keyboard.SPACE) {
+            let bottle = new Ammo();
+            this.ammo.push(bottle);
+
+        }
     }
 
     setWorld() {
         this.charachter.world = this
-  
+
     }
 
 
@@ -33,13 +64,16 @@ class World {
         this.addObjectsToMap(this.level.light);
         this.addObjectsToMap(this.level.backgrounds);
         this.addObjectsToMap(this.level.coins);
-        
+        this.addObjectsToMap(this.ammo);
+
+
 
 
 
 
         this.addToMap(this.charachter);
-        
+
+
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);
 
@@ -90,16 +124,5 @@ class World {
         object.x = object.x * -1;
     }
 
-    checkCollisions() {
-        setInterval(() => {
-            this.level.enemies.forEach(enemy => {
-                if (this.charachter.isColliding(enemy)) {
-                 
-                   this.charachter.hit();
-                   
-                    
-                }    
-            })
-        }, 200);
-    }
+
 }

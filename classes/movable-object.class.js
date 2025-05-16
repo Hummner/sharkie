@@ -4,10 +4,30 @@ class MovableObject extends DrawableObject {
     speed = 0.3;
     otherDirection = false;
     lastHit;
+    acceleration = 1;
+    attack;
 
 
 
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
 
+            }
+
+        }, 1000 / 25);
+    }
+
+    isAboveGround() {
+        if (this instanceof Ammo) {
+            return true
+        } else {
+            return this.y < 180;
+        }
+
+    }
 
 
 
@@ -96,6 +116,14 @@ class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 1;
+    }
+
+    isShoot() {
+        if (this.attack) {
+            return true
+        } else {
+            return false
+        }
     }
 
 

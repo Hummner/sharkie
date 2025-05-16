@@ -73,8 +73,19 @@ class Character extends MovableObject {
         "img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
         "img/1.Sharkie/5.Hurt/1.Poisoned/5.png"
     ]
+
+    ATTACK_BUBBLE = [
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png",
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png",
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png",
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png",
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png",
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png",
+        "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png"
+    ]
     speedY = 0;
-    acceleration = 1;
+    
 
      offset = {
         top: 140,
@@ -83,20 +94,7 @@ class Character extends MovableObject {
         right: 45
     }
 
-    applyGravity() {
-        setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
 
-            }
-
-        }, 1000 / 25);
-    }
-
-    isAboveGround() {
-        return this.y < 100;
-    }
 
 
 
@@ -111,6 +109,7 @@ class Character extends MovableObject {
         this.loadImages(this.LONG_IDLE_IMAGES);
         this.loadImages(this.DEAD_IMAGES);
         this.loadImages(this.HURT_IMAGES);
+        this.loadImages(this.ATTACK_BUBBLE);
         this.applyGravity();
         this.animate();
     
@@ -143,17 +142,17 @@ class Character extends MovableObject {
         }, 1000 / 60)
 
 
-        setInterval(() => {
+        let animations = setInterval(() => {
 
             if (this.isDead()) {
                 this.playAnimation(this.DEAD_IMAGES)
-
-
-
             } else if (this.isHurt()) {
                 this.playAnimation(this.HURT_IMAGES)
+            } else if (this.isShoot()) {
+                this.playAnimation(this.ATTACK_BUBBLE)
+            }
 
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.WALKING_IMAGES);
                
 

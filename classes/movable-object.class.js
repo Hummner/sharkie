@@ -27,7 +27,7 @@ class MovableObject extends DrawableObject {
     moveBackgroundRight() {
 
         this.world.level.backgrounds.forEach(layer => {
-            layer.x -= layer.speed;
+            layer.x += layer.speed;
         });
 
 
@@ -37,7 +37,7 @@ class MovableObject extends DrawableObject {
     moveBackgroundLeft() {
 
         this.world.level.backgrounds.forEach(layer => {
-            layer.x += layer.speed;
+            layer.x -= layer.speed;
         });
 
 

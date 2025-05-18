@@ -1,11 +1,13 @@
 class MovableObject extends DrawableObject {
 
     currentImage = 0;
+    currentImageOnlyOneAnimation = 0;
     speed = 0.3;
     otherDirection = false;
     lastHit;
     acceleration = 1;
     attack;
+   
 
 
 
@@ -33,10 +35,20 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(images) {
-        let i = this.currentImage % images.length
-        let path = images[i]
-        this.img = this.imageCache[path]
+        let i = this.currentImage % images.length; // 
+        let path = images[i];
+        this.img = this.imageCache[path];
         this.currentImage++
+    }
+
+    playOnlyOneAnimation(images, toStop) {
+
+        let i = this.currentImageOnlyOneAnimation % images.length;
+        if (toStop) return;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImageOnlyOneAnimation++
+
     }
 
     moveLeft() {
@@ -79,6 +91,14 @@ class MovableObject extends DrawableObject {
         this.speedY = 10;
     }
 
+    setTime(timeout) {
+        this.timeCounter = true
+        setTimeout(() => {
+            return this.timeCounter = false
+        }, timeout);
+
+    }
+
 
 
 
@@ -119,7 +139,15 @@ class MovableObject extends DrawableObject {
     }
 
     isShoot() {
-        if (this.attack) {
+        if (this.attackTime) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    isMeleeAttack() {
+        if (this.meleeAttackTime) {
             return true
         } else {
             return false

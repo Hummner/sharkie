@@ -5,6 +5,20 @@ class Character extends MovableObject {
     speed = 10;
     hp = 100;
     longIdle;
+    speedY = 0;
+    currentImageOnlyOneAnimation = 0
+    attackTime;
+    meleeAttackTime;
+
+
+    offset = {
+        top: 140,
+        bottom: 60,
+        left: 50,
+        right: 45
+    }
+
+    world;
 
     DEAD_IMAGES = [
         "img/1.Sharkie/6.dead/1.Poisoned/1.png",
@@ -84,23 +98,18 @@ class Character extends MovableObject {
         "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png",
         "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png"
     ]
-    speedY = 0;
-    
 
-     offset = {
-        top: 140,
-        bottom: 60,
-        left: 50,
-        right: 45
-    }
-
-
-
+    FIN_SLAP = [
+        "img/1.Sharkie/4.Attack/Fin slap/2.png",
+        "img/1.Sharkie/4.Attack/Fin slap/3.png",
+        "img/1.Sharkie/4.Attack/Fin slap/4.png",
+        "img/1.Sharkie/4.Attack/Fin slap/5.png",
+        "img/1.Sharkie/4.Attack/Fin slap/6.png",
+        "img/1.Sharkie/4.Attack/Fin slap/7.png",
+        "img/1.Sharkie/4.Attack/Fin slap/8.png"
+    ]
 
 
-
-
-    world;
 
     constructor() {
         super().loadImage("img/1.Sharkie/3.Swim/1.png");
@@ -110,16 +119,18 @@ class Character extends MovableObject {
         this.loadImages(this.DEAD_IMAGES);
         this.loadImages(this.HURT_IMAGES);
         this.loadImages(this.ATTACK_BUBBLE);
+        this.loadImages(this.FIN_SLAP);
         this.applyGravity();
         this.animate();
-    
+
 
     }
 
+    frame;
+
     animate() {
 
-
-        //Right
+        //Moving
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight()
@@ -142,6 +153,8 @@ class Character extends MovableObject {
         }, 1000 / 60)
 
 
+        //Moving Animations
+
         let animations = setInterval(() => {
 
             if (this.isDead()) {
@@ -149,12 +162,15 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.HURT_IMAGES)
             } else if (this.isShoot()) {
-                this.playAnimation(this.ATTACK_BUBBLE)
-            }
+                this.playOnlyOneAnimation(this.ATTACK_BUBBLE, !this.isShoot());
+            } else if (this.isMeleeAttack() && !this.isHurt()) {
 
-             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playOnlyOneAnimation(this.FIN_SLAP, !this.isMeleeAttack());
+
+
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.WALKING_IMAGES);
-               
+
 
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.WALKING_IMAGES);
@@ -163,17 +179,12 @@ class Character extends MovableObject {
                 this.playAnimation(this.IDLE_IMAGES);
             }
 
-            
-        }, 100)
+
+        }, 100);
 
 
 
     }
 
-    
 
-   
-
-
-  
 }   

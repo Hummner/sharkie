@@ -32,8 +32,8 @@ class Chicken extends MovableObject {
         super().loadImage("./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png");
         this.loadImages(this.DEAD_IMAGES);
 
-        this.x = 500 + Math.random() * 500;
-        this.y = 100 + Math.random() * 300;
+        this.x = 800 + Math.random() * 3000;
+        this.y = 300;
         this.loadImages(this.WALKING_IMAGES)
         this.speed = 0.3 + Math.random() * 0.5;
         this.animate();

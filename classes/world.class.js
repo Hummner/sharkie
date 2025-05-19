@@ -1,6 +1,8 @@
 class World {
     charachter = new Character();
     hpStatus = new StatusBar();
+    coinStatus = new CoinStatusbar();
+    poisionStatus = new PoisonStatus();
 
     ammo = [];
     slash = [];
@@ -32,12 +34,9 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.charachter.isColliding(enemy)) {
-
                 this.charachter.hit();
             }
         });
-
-
 
         this.level.enemies.forEach(enemy => {
             const hitAmmo = this.ammo.find(a => enemy.isColliding(a));
@@ -48,12 +47,30 @@ class World {
                 enemy.currentImageOnlyOneAnimation = 0;
 
             }
+        });
+
+        this.level.coins.forEach(coin => {
+            if (this.charachter.isColliding(coin)) {
+                this.collectCoin(coin);
+                console.log("Collected");
+            }
         })
     }
 
+    collectCoin(coin) {
+        this.coinStatus.percentage += 20;
+        this.coinStatus.setPercentage(this.coinStatus.percentage);
+        this.level.coins.splice(this.level.coins.indexOf(coin), 1);
+    }
+
+
+
+
+
+
     throwAmmo() {
 
-        if (this.keyboard.SPACE && !this.charachter.isHurt() && this.ammo.length == 0) {
+        if (this.keyboard.SPACE && !this.charachter.isHurt() && this.ammo.length == 0 && !this.charachter.isDead()) {
             this.charachter.attackTime = true;
             setTimeout(() => {
                 let bubble = new Ammo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
@@ -74,20 +91,27 @@ class World {
     }
 
     meleeAttackA() {
-        if (this.keyboard.D && this.slash.length == 0 && !this.charachter.isHurt()) {
-            let slashAttckInterval = setInterval(() => {
+        if (this.keyboard.D && this.slash.length == 0 && !this.charachter.isHurt() && !this.charachter.isDead()) {
+            let slashAttackInterval = setInterval(() => {
                 let slashAttack = new Slash(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
                 this.slash.push(slashAttack);
             }, 50);
-            this.charachter.currentImageOnlyOneAnimation = 0;
-            this.charachter.meleeAttackTime = true;
-            setTimeout(() => {
-                clearInterval(slashAttckInterval)
-                this.charachter.meleeAttackTime = false;
-                this.slash = [];
-            }, 850)
-
+            this.clearMeleeAttackAnimation(slashAttackInterval)
         }
+    }
+
+    clearMeleeAttackAnimation(slashAttackInterval) {
+        let deleteSlash = setInterval(() => {
+            this.slash.splice(0, 1);
+        }, 70);
+        this.charachter.currentImageOnlyOneAnimation = 0;
+        this.charachter.meleeAttackTime = true;
+        setTimeout(() => {
+            clearInterval(slashAttackInterval)
+            clearInterval(deleteSlash)
+            this.charachter.meleeAttackTime = false;
+            this.slash = [];
+        }, 850)
     }
 
 
@@ -120,6 +144,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
 
         this.addToMap(this.hpStatus);
+        this.addToMap(this.coinStatus);
+        this.addToMap(this.poisionStatus);
 
 
 

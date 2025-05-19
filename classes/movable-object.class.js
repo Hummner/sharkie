@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject {
     lastHit;
     acceleration = 1;
     attack;
-   
+
 
 
 
@@ -78,13 +78,10 @@ class MovableObject extends DrawableObject {
 
     moveRight() {
         this.x += 10;
+    }
 
-
-        console.log(this.world.level.backgrounds[0].speed);
-
-
-
-
+    moveDown() {
+        this.speedY = -10;
     }
 
     moveUp() {
@@ -127,6 +124,9 @@ class MovableObject extends DrawableObject {
         console.log(this.hp)
 
     }
+
+ 
+
 
     isDead() {
         return this.hp == 0;

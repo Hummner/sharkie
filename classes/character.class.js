@@ -139,7 +139,7 @@ class Character extends MovableObject {
 
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > 100) {
                 this.moveLeft();
                 this.moveBackgroundLeft();
                 this.otherDirection = true
@@ -147,6 +147,10 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.UP && this.y > 0) {
                 this.moveUp()
+            }
+
+            if (this.world.keyboard.DOWN && this.y > 0) {
+                this.moveDown()
             }
 
             this.world.camera_x = -this.x + 100;

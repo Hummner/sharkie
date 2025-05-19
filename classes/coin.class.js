@@ -1,6 +1,7 @@
 class Coin extends MovableObject {
     width = 50;
     height = 50;
+    y = 300;
      offset = {
         top: 10,
         bottom: 10,
@@ -16,11 +17,11 @@ class Coin extends MovableObject {
     ]
 
 
-    constructor(x) {
+    constructor() {
         super().loadImage("./img/4. Marcadores/1. Coins/1.png");
         this.loadImages(this.images);
         this.animate();
-        this.x = x;
+        this.x = 200 + Math.random() * 3000;
     }
 
 

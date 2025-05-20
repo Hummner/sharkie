@@ -8,6 +8,8 @@ class World {
     slash = [];
     soundspool = [];
 
+
+
     level = level1;
 
     ctx;
@@ -19,9 +21,11 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas
         this.keyboard = keyboard;
+        this.playBackgroundMusic(0.1);
         this.draw();
         this.setWorld();
         this.run();
+
     }
 
     run() {
@@ -35,7 +39,14 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.charachter.isColliding(enemy)) {
-                this.charachter.hit();
+                if (enemy.thunderstrike) {
+                    this.charachter.thunderHit();
+                    this.playSounds("./audio/electric.wav", 0.1)
+
+                } else {
+                    this.charachter.hit();
+                }
+
             }
         });
 
@@ -58,7 +69,7 @@ class World {
             }
         })
 
-         this.level.poisonBottle.forEach(bottle => {
+        this.level.poisonBottle.forEach(bottle => {
             if (this.charachter.isColliding(bottle)) {
                 this.collectBottle(bottle);
                 console.log("Collected", bottle.x);
@@ -73,17 +84,37 @@ class World {
         this.level.coins.splice(this.level.coins.indexOf(coin), 1);
     }
 
-     collectBottle(bottle) {
+    collectBottle(bottle) {
         this.poisionStatus.percentage += 25;
         this.poisionStatus.setPercentage(this.poisionStatus.percentage);
         this.level.poisonBottle.splice(this.level.poisonBottle.indexOf(bottle), 1);
     }
 
     playSounds(url, volume) {
-        let newSound = new Audio(url, volume);
+        let newSound = new Audio(url);
         newSound.volume = volume;
         newSound.play();
     }
+
+    playBackgroundMusic(volume) {
+        let randomInterval = 5000;
+            setTimeout(() => {
+                let music = new Audio("./audio/music.mp3");
+                music.volume = volume;
+                music.loop = true;
+                music.play();
+                setInterval(() => {
+                    let bulb = new Audio("./audio/bulb.wav");
+                    bulb.volume = volume + 0.1;
+                    bulb.play();
+                    randomInterval = 1000 + Math.random() * 4000;
+                }, randomInterval);
+                    
+                
+
+            }, 500);
+        };
+    
 
 
 
@@ -95,23 +126,23 @@ class World {
         if (this.keyboard.SPACE && !this.charachter.isHurt() && this.ammo.length == 0 && !this.charachter.isDead() && !this.charachter.attackTime) {
             this.charachter.attackTime = true;
             setTimeout(() => {
-            if (this.poisionStatus.percentage != 0) {
-                let bubble = new PoisonAmmo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
-                this.ammo.push(bubble);
-                this.charachter.currentImageOnlyOneAnimation = 0;
-                this.poisionStatus.percentage -= 25;
-                this.poisionStatus.setPercentage(this.poisionStatus.percentage);
-                
-                console.log("Poison")
+                if (this.poisionStatus.percentage != 0) {
+                    let bubble = new PoisonAmmo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
+                    this.ammo.push(bubble);
+                    this.charachter.currentImageOnlyOneAnimation = 0;
+                    this.poisionStatus.percentage -= 25;
+                    this.poisionStatus.setPercentage(this.poisionStatus.percentage);
 
-            } else {
-                let bubble = new Ammo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
-                this.ammo.push(bubble);
-                this.charachter.currentImageOnlyOneAnimation = 0;
-            }
-            this.playSounds("./audio/shoot.wav", 0.5)
-            
-                
+                    console.log("Poison")
+
+                } else {
+                    let bubble = new Ammo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
+                    this.ammo.push(bubble);
+                    this.charachter.currentImageOnlyOneAnimation = 0;
+                }
+                this.playSounds("./audio/shoot.wav", 0.5)
+
+
 
             }, 750);
 
@@ -131,8 +162,8 @@ class World {
             let slashAttackInterval = setInterval(() => {
                 let slashAttack = new Slash(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
                 this.slash.push(slashAttack);
-                
-                
+
+
             }, 50);
             this.playSounds("./audio/slash-short-short.wav", 0.5)
             this.clearMeleeAttackAnimation(slashAttackInterval)

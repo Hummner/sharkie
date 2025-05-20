@@ -2,6 +2,7 @@ class JellyFish extends MovableObject {
     width = 100;
     height = 100;
     y = 0;
+    thunderstrike = true
 
     WALKING_IMAGES = [
         "img/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png",

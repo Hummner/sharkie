@@ -144,12 +144,25 @@ class MovableObject extends DrawableObject {
 
     }
 
- 
+    thunderHit() {
+        if (this.hp > 0) {
+            setTimeout(() => {
+                this.hp = 0;
+                this.world.hpStatus.setPercentage(this.hp);
+            }, 1000);
+            this.currentImageOnlyOneAnimation = 0;
+            this.lastHit = new Date().getTime();
+            return this.thunderDead = true;
+        }
+    }
+
+
 
 
     isDead() {
-        return this.hp == 0;
+        return this.hp <= 0;
     }
+
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;

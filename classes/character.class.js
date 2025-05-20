@@ -9,6 +9,7 @@ class Character extends MovableObject {
     currentImageOnlyOneAnimation = 0
     attackTime = false;
     meleeAttackTime;
+    thunderDead;
 
 
     offset = {
@@ -109,6 +110,12 @@ class Character extends MovableObject {
         "./img/1.Sharkie/4.Attack/Fin slap/8.png"
     ]
 
+    THUNDER_SRIKE = [
+        "./img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
+        "./img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
+        "./img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
+    ]
+
 
 
     constructor() {
@@ -120,37 +127,39 @@ class Character extends MovableObject {
         this.loadImages(this.HURT_IMAGES);
         this.loadImages(this.ATTACK_BUBBLE);
         this.loadImages(this.FIN_SLAP);
+        this.loadImages(this.THUNDER_SRIKE);
         this.applyGravity();
         this.animate();
 
 
     }
 
-  
+
 
     animate() {
+        let timesRun = 0;
 
         //Moving
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight()
                 this.moveBackgroundRight();
                 this.otherDirection = false
 
             }
 
-            if (this.world.keyboard.LEFT && this.x > 100) {
+            if (this.world.keyboard.LEFT && this.x > 100 && !this.isDead()) {
                 this.moveLeft();
                 this.moveBackgroundLeft();
                 this.otherDirection = true
             }
 
-            if (this.world.keyboard.UP && this.y > 0) {
+            if (this.world.keyboard.UP && this.y > 0 && !this.isDead()) {
                 this.moveUp(10)
                 this.world.playSounds("./audio/jump.wav", 0.5)
             }
 
-            if (this.world.keyboard.DOWN && this.y > 0) {
+            if (this.world.keyboard.DOWN && this.y > 0 && !this.isDead()) {
                 this.moveDown()
             }
 
@@ -163,28 +172,31 @@ class Character extends MovableObject {
         let animations = setInterval(() => {
 
             if (this.isDead()) {
-                this.playAnimation(this.DEAD_IMAGES)
+             
+                this.playOnlyOneAnimation(this.DEAD_IMAGES, this.currentImageOnlyOneAnimation == 12)
+                this.moveUp(5)
+                
+                
+                
+        
+               
+                
+        
+            } else if (this.thunderDead) {
+                this.playOnlyOneAnimation(this.THUNDER_SRIKE, !this.isHurt())
             } else if (this.isHurt()) {
                 this.playAnimation(this.HURT_IMAGES)
             } else if (this.isShoot()) {
                 this.playOnlyOneAnimation(this.ATTACK_BUBBLE, !this.isShoot());
             } else if (this.isMeleeAttack() && !this.isHurt()) {
-
                 this.playOnlyOneAnimation(this.FIN_SLAP, !this.isMeleeAttack());
-
-
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.WALKING_IMAGES);
-
-
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.WALKING_IMAGES);
-
             } else {
                 this.playAnimation(this.IDLE_IMAGES);
             }
-
-
         }, 100);
 
 

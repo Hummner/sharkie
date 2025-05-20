@@ -7,7 +7,7 @@ class Character extends MovableObject {
     longIdle;
     speedY = 0;
     currentImageOnlyOneAnimation = 0
-    attackTime;
+    attackTime = false;
     meleeAttackTime;
 
 

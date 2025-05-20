@@ -59,6 +59,12 @@ const level1 = new Level(
         new Coin(),
         new Coin()
       
+    ],
+    [
+        new PoisonBottle(400, 800),
+        new PoisonBottle(800, 1200),
+        new PoisonBottle(1200, 1500),
+        new PoisonBottle(1500, 3000)
     ]
 
 

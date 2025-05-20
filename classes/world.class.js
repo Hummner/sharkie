@@ -52,7 +52,15 @@ class World {
         this.level.coins.forEach(coin => {
             if (this.charachter.isColliding(coin)) {
                 this.collectCoin(coin);
+                collectAudio.play();
                 console.log("Collected");
+            }
+        })
+
+         this.level.poisonBottle.forEach(bottle => {
+            if (this.charachter.isColliding(bottle)) {
+                this.collectBottle(bottle);
+                console.log("Collected", bottle.x);
             }
         })
     }
@@ -63,6 +71,12 @@ class World {
         this.level.coins.splice(this.level.coins.indexOf(coin), 1);
     }
 
+     collectBottle(bottle) {
+        this.poisionStatus.percentage += 25;
+        this.poisionStatus.setPercentage(this.poisionStatus.percentage);
+        this.level.poisonBottle.splice(this.level.poisonBottle.indexOf(bottle), 1);
+    }
+
 
 
 
@@ -70,12 +84,26 @@ class World {
 
     throwAmmo() {
 
-        if (this.keyboard.SPACE && !this.charachter.isHurt() && this.ammo.length == 0 && !this.charachter.isDead()) {
+        if (this.keyboard.SPACE && !this.charachter.isHurt() && this.ammo.length == 0 && !this.charachter.isDead() && !this.charachter.attackTime) {
             this.charachter.attackTime = true;
             setTimeout(() => {
+            if (this.poisionStatus.percentage != 0) {
+                let bubble = new PoisonAmmo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
+                this.ammo.push(bubble);
+                this.charachter.currentImageOnlyOneAnimation = 0;
+                this.poisionStatus.percentage -= 25;
+                this.poisionStatus.setPercentage(this.poisionStatus.percentage);
+                
+                console.log("Poison")
+
+            } else {
                 let bubble = new Ammo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
                 this.ammo.push(bubble);
                 this.charachter.currentImageOnlyOneAnimation = 0;
+            }
+            shootAudio.play()
+            
+                
 
             }, 750);
 
@@ -95,7 +123,10 @@ class World {
             let slashAttackInterval = setInterval(() => {
                 let slashAttack = new Slash(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
                 this.slash.push(slashAttack);
+                
+                
             }, 50);
+            slashAudio.play()
             this.clearMeleeAttackAnimation(slashAttackInterval)
         }
     }
@@ -129,6 +160,7 @@ class World {
         this.addObjectsToMap(this.level.light);
         this.addObjectsToMap(this.level.backgrounds);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.poisonBottle);
         this.addObjectsToMap(this.ammo);
         this.addObjectsToMap(this.slash);
 

@@ -75,6 +75,25 @@ class MovableObject extends DrawableObject {
 
     }
 
+    throw() {
+        let direction;
+        this.width = 25;
+        this.height = 25;
+        this.x = this.charachterX + 120;
+        this.y = this.charachterY + 140;
+        this.applyGravity();
+        if (this.otherDirection) {
+            this.otherDirection = true
+            direction = -5;
+        } else {
+            this.otherDirection = false
+            direction = 5;
+        }
+        setInterval(() => {
+            this.x += direction;
+        }, 10);
+    }
+
 
     moveRight() {
         this.x += 10;

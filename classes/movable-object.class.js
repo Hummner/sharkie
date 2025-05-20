@@ -103,8 +103,8 @@ class MovableObject extends DrawableObject {
         this.speedY = -10;
     }
 
-    moveUp() {
-        this.speedY = 10;
+    moveUp(speed) {
+        this.speedY = speed;
     }
 
     setTime(timeout) {

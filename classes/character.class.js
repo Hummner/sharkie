@@ -126,7 +126,7 @@ class Character extends MovableObject {
 
     }
 
-    frame;
+  
 
     animate() {
 
@@ -146,7 +146,8 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.UP && this.y > 0) {
-                this.moveUp()
+                this.moveUp(10)
+                this.world.playSounds("./audio/jump.wav", 0.5)
             }
 
             if (this.world.keyboard.DOWN && this.y > 0) {

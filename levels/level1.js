@@ -6,6 +6,9 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
+        new JellyFish(5, 400),
+        new JellyFish( 8, 800),
+        new JellyFish(10, 1200),
         new Endboss()
     ],
     [

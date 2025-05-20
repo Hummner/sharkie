@@ -6,6 +6,7 @@ class World {
 
     ammo = [];
     slash = [];
+    soundspool = [];
 
     level = level1;
 
@@ -52,7 +53,7 @@ class World {
         this.level.coins.forEach(coin => {
             if (this.charachter.isColliding(coin)) {
                 this.collectCoin(coin);
-                collectAudio.play();
+                this.playSounds("./audio/collect.wav", 0.1)
                 console.log("Collected");
             }
         })
@@ -61,6 +62,7 @@ class World {
             if (this.charachter.isColliding(bottle)) {
                 this.collectBottle(bottle);
                 console.log("Collected", bottle.x);
+                this.playSounds("./audio/bottleCollect.wav", 0.1)
             }
         })
     }
@@ -75,6 +77,12 @@ class World {
         this.poisionStatus.percentage += 25;
         this.poisionStatus.setPercentage(this.poisionStatus.percentage);
         this.level.poisonBottle.splice(this.level.poisonBottle.indexOf(bottle), 1);
+    }
+
+    playSounds(url, volume) {
+        let newSound = new Audio(url, volume);
+        newSound.volume = volume;
+        newSound.play();
     }
 
 
@@ -101,7 +109,7 @@ class World {
                 this.ammo.push(bubble);
                 this.charachter.currentImageOnlyOneAnimation = 0;
             }
-            shootAudio.play()
+            this.playSounds("./audio/shoot.wav", 0.5)
             
                 
 
@@ -126,7 +134,7 @@ class World {
                 
                 
             }, 50);
-            slashAudio.play()
+            this.playSounds("./audio/slash-short-short.wav", 0.5)
             this.clearMeleeAttackAnimation(slashAttackInterval)
         }
     }

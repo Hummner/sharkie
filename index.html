@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,23 +18,47 @@
     <script src="./classes/slash.class.js"></script>
     <script src="./classes/chicken.class.js"></script>
     <script src="./classes/jellyfish.class.js"></script>
-     <script src="./classes/background.class.js"></script>
-     <script src="./classes/barricade.class.js"></script>
-     <script src="./classes/keyboard.class.js"></script>
-     <script src="./classes/endboss.class.js"></script>
-     <script src="./classes/coin.class.js"></script>
-     <script src="./classes/poison-bottle.class.js"></script>
-     <script src="./classes/level.class.js"></script>
-     <script src="./levels/level1.js"></script>
-     <script src="./audio/audio.js"></script>
-     
+    <script src="./classes/background.class.js"></script>
+    <script src="./classes/barricade.class.js"></script>
+    <script src="./classes/keyboard.class.js"></script>
+    <script src="./classes/endboss.class.js"></script>
+    <script src="./classes/coin.class.js"></script>
+    <script src="./classes/poison-bottle.class.js"></script>
+    <script src="./classes/level.class.js"></script>
+    <script src="./levels/level1.js"></script>
+    <script src="./audio/audio.js"></script>
+
     <script src="./classes/world.class.js"></script>
-    
+
     <script src="./js/game.js"></script>
 </head>
-<body onload=" init()">
-    <h1>Sharkie</h1>
 
-    <canvas id="canvas" width="720px" height="480px"></canvas>
+<body>
+    <h1>Sharkie vs. The Whale Boss</h1>
+    <main>
+        <section id="menu_section">
+            <div class="main-menu">
+                <div class="menu">
+                <h2 class="start" onclick="startGame()">Start Game</h2>
+                <h2>Settings</h2>
+                <h2>Introduction</h2>
+            </div>
+
+            <div class="canvas-footer">
+                <h3>Fullscreen</h3>
+                <h3>Impressum</h3>
+            </div>
+            </div>
+            
+        </section>
+
+        <canvas id="canvas" width="720px" height="480px" class="d-none">
+
+        </canvas>
+
+    </main>
+
+
 </body>
+
 </html>

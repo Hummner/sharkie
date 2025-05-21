@@ -2,17 +2,17 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let button;
- 
+
 
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
-    
+
 
 
     console.log("My charachter is", world.charachter);
-    
-    
+
+
 
 }
 
@@ -37,14 +37,14 @@ window.addEventListener("keydown", (key) => {
         keyboard.SPACE = true;
     }
 
-     if (key.keyCode === 68) {
+    if (key.keyCode === 68) {
         keyboard.D = true;
-        
+
     }
 });
 
 window.addEventListener("keyup", (key) => {
-    
+
     if (key.keyCode === 39) {
         keyboard.RIGHT = false;
     }
@@ -69,5 +69,28 @@ window.addEventListener("keyup", (key) => {
         keyboard.D = false;
     }
 
-    
-})
+
+});
+
+
+const sound = document.getElementById('hoverSound');
+const headings = document.querySelectorAll('h2, h3');
+
+headings.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        // Set to start if still playing
+        sound.currentTime = 0;
+        sound.play();
+    });
+});
+
+
+function startGame() {
+    init();
+    loadCanvas();
+}
+
+function loadCanvas() {
+    document.getElementById("canvas").classList.remove("d-none");
+    document.getElementById("menu_section").classList.add("d-none");
+}

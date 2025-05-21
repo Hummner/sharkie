@@ -1,7 +1,78 @@
+@font-face {
+    font-family: lucky;
+    src: url(./img/5.Font/Luckiest_Guy/LuckiestGuy-Regular.ttf);
+}
+
 canvas {
     background-color: black;
     border-radius: 20px;
     border: 2px solid white;
+}
+
+section {
+    width: 720px;
+    height: 480px;
+    background-color: black;
+    background: url("./img/3. Background/Mesa de trabajo 1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    justify-content: space-between;
+    width: 720px;
+    height: 480px;
+    border: 2px solid white;
+    border-radius: 20px;
+
+
+}
+
+.main-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    margin-top: 60px;
+    width: fit-content;
+    
+}
+
+.canvas-footer {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+h2,
+h3 {
+    font-size: 24px;
+    background-color: #7FFFE0;
+    border: 4px solid white;
+    color: #531A82;
+    padding: 12px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+    transition: transform 0.2s ease;
+}
+
+h2:hover,
+h3:hover {
+    filter: invert();
+    color: black;
+    transform: scale(1.05);
+}
+
+h1 {
+    color:white;
 }
 
 body {
@@ -13,4 +84,14 @@ body {
     background-size: cover;
     min-height: 100vh;
     margin: 0;
+    font-family: lucky, serif;
+}
+
+.start {
+    font-size: 40px;
+
+}
+
+.d-none {
+    display: none;
 }

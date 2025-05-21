@@ -48,6 +48,7 @@ class DrawableObject {
     }
 
     drawFrameRed(ctx) {
+        // if( this instanceof Barricade) {
         // const x = this.x + this.offset.left;
         // const y = this.y + this.offset.top;
         // const width = this.width - this.offset.left - this.offset.right;
@@ -58,6 +59,7 @@ class DrawableObject {
         // ctx.strokeStyle = "red";
         // ctx.rect(x, y, width, height);
         // ctx.stroke();
+        // }
     }
 
 }

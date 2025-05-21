@@ -25,7 +25,7 @@ class Slash extends MovableObject {
                 this.otherDirection = false
                 offsetX = +90;
             }
-            this.width = 150;
+            this.width = 200;
             this.heigth = 100;
 
             this.x = this.charachterX + offsetX;

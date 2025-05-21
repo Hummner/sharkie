@@ -17,11 +17,11 @@ class Coin extends MovableObject {
     ]
 
 
-    constructor() {
+    constructor(minX, maxX) {
         super().loadImage("./img/4. Marcadores/1. Coins/1.png");
         this.loadImages(this.images);
         this.animate();
-        this.x = 200 + Math.random() * 3000;
+        this.x = minX + Math.random() * maxX;
     }
 
 

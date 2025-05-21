@@ -67,7 +67,7 @@ class World {
                 this.playSounds("./audio/collect.wav", 0.1)
                 console.log("Collected");
             }
-        })
+        });
 
         this.level.poisonBottle.forEach(bottle => {
             if (this.charachter.isColliding(bottle)) {
@@ -75,7 +75,9 @@ class World {
                 console.log("Collected", bottle.x);
                 this.playSounds("./audio/bottleCollect.wav", 0.1)
             }
-        })
+        });
+
+
     }
 
     collectCoin(coin) {
@@ -196,12 +198,13 @@ class World {
 
 
 
-        this.addObjectsToMap(this.level.light);
+        
         this.addObjectsToMap(this.level.backgrounds);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poisonBottle);
         this.addObjectsToMap(this.ammo);
         this.addObjectsToMap(this.slash);
+        
 
 
 
@@ -209,9 +212,12 @@ class World {
 
 
         this.addToMap(this.charachter);
-
-
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.light);
+        this.addObjectsToMap(this.level.barricade);
+
+
+        
         this.ctx.translate(-this.camera_x, 0);
 
         this.addToMap(this.hpStatus);

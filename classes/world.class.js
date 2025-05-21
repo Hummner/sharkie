@@ -21,7 +21,7 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas
         this.keyboard = keyboard;
-        this.playBackgroundMusic(0.1);
+       
         this.draw();
         this.setWorld();
         this.run();

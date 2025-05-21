@@ -154,13 +154,16 @@ class Character extends MovableObject {
                 this.otherDirection = true
             }
 
-            if (this.world.keyboard.UP && this.y > 0 && !this.isDead()) {
+            if (this.world.keyboard.UP && this.y > 0 && !this.isDead() && this.speedY < 3) {
                 this.moveUp(10)
                 this.world.playSounds("./audio/jump.wav", 0.5)
             }
 
-            if (this.world.keyboard.DOWN && this.y > 0 && !this.isDead()) {
+            if (this.world.keyboard.DOWN && !this.isDead() && this.speedY > -10) {
+                console.log(this.speedY)
                 this.moveDown()
+                this.world.playSounds("./audio/jump.wav", 0.5)
+                
             }
 
             this.world.camera_x = -this.x + 100;

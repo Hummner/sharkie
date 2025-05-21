@@ -33,28 +33,80 @@
     <script src="./js/game.js"></script>
 </head>
 
-<body>
-    <h1>Sharkie vs. The Whale Boss</h1>
-    <main>
-        <section id="menu_section">
+<body id="body">
+    <h1>Sharkie Escape – Depths of the Ocean</h1>
+    <main id="main">
+        <section id="menu_section" class="">
             <div class="main-menu">
                 <div class="menu">
-                <h2 class="start" onclick="startGame()">Start Game</h2>
-                <h2>Settings</h2>
-                <h2>Introduction</h2>
+                    <h2 class="start" onclick="startGame()">Start Game</h2>
+                    <h2 onclick="toIntroduction()">Introduction</h2>
+                    <h3>Impressum</h3>
+                </div>
+        </section>
+        <section class="introduction-section d-none" id="introduction_section">
+            <div class="introduction-back">
+                <div class="back-button" id="back_button" onclick="backToMain()">
+                    <img class="back-icon" src="./img/icon/arrow-1293392_1280.png" alt="">
+                    <p>Back</p>
+                </div>
             </div>
 
-            <div class="canvas-footer">
-                <h3>Fullscreen</h3>
-                <h3>Impressum</h3>
+            <div class="intro-desc-section">
+                <h1>HOW TO PLAY</h1>
+                <div class="introduction-move">
+                    <img class="arrow-img" src="./img/6.Botones/Key/arrow keys.png" alt="">
+                    <p>Move</p>
+                </div>
+                <div class="introduction-move">
+                    <img class="d-img" src="./img/6.Botones/Key/D key.png" alt="">
+                    <p>Shoot</p>
+                </div>
+                <div class="introduction-move">
+                    <img class="space-img" src="./img/6.Botones/Key/Space Bar key.png" alt="">
+                    <p>Melee attack</p>
+                </div>
+
+                <div class="description">
+                    <h1>Description</h1>
+                    <h4>Welcome to “Shark Escape – Depths of the Ocean”!</h3>
+                        <p>Dive into the mysterious, treacherous world beneath the waves. You are Shark — swift,
+                            fearless,
+                            and ready for anything the deep throws at you. Your mission: survive the dangers of the
+                            ocean,
+                            uncover hidden treasures, and face the deadliest predator of all.</p>
+                        <p>But beware — the deep sea is full of threats:</p>
+                        <ul>
+                            <li><span class="enemy">Jellyfish </span> may move slowly, but one touch means instant
+                                death. Stay sharp and swim around them!</li>
+                            <li><span class="enemy">Pufferfish </span> aren’t instantly lethal, but their poison drains
+                                your life bit by bit. Avoid them at all costs.</li>
+                            <li><span class="enemy">Barricades </span> block your path — what hides beneath them? A
+                                deadly trap… or a hidden treasure? Only one way to find out.</li>
+                            <li>And then, there’s the <span class="enemy">Final Boss: </span> The Whale. Massive.
+                                Merciless. If you see it, RUN — or FIGHT! But be warned: you can only defeat the whale
+                                by shooting. Touch it, and you’re done for.</li>
+                            <li><span class="enemy">Poison Bottles: </span> Collect these to enhance your attack power!
+                                They’re your best weapon against the Final Boss.</li>
+                            <li><span class="enemy">Coins: </span> Gather as many as you can for extra rewards and
+                                bragging rights!</li>
+                            <p>Are you ready to take on the deep? Swim, jump, fight — and survive!</p>
+
+                        </ul>
+                </div>
+
             </div>
+        </section>
+        <section id="game_canvas" class="game-canvas d-none">
+            <canvas id="canvas" width="720px" height="480px"></canvas>
+            <div class="buttons-desktop">
+                <h3 onclick="fullscreen()">FULLSCREEN</h3>
+                <h3 onclick="backToMain()">Main menu</h3>
             </div>
-            
+
         </section>
 
-        <canvas id="canvas" width="720px" height="480px" class="d-none">
 
-        </canvas>
 
     </main>
 

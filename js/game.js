@@ -6,14 +6,8 @@ let button;
 
 function init() {
     canvas = document.getElementById("canvas");
+    startLevel();
     world = new World(canvas, keyboard);
-
-
-
-    console.log("My charachter is", world.charachter);
-
-
-
 }
 
 window.addEventListener("keydown", (key) => {
@@ -91,6 +85,27 @@ function startGame() {
 }
 
 function loadCanvas() {
-    document.getElementById("canvas").classList.remove("d-none");
+    document.getElementById("game_canvas").classList.remove("d-none");
     document.getElementById("menu_section").classList.add("d-none");
+}
+
+function fullscreen() {
+    let canvas = document.getElementById("canvas");
+        canvas.requestFullscreen();
+
+}
+
+function backToMain() {
+    document.getElementById("introduction_section").classList.add("d-none");
+    document.getElementById("menu_section").classList.remove("d-none");
+    document.getElementById("game_canvas").classList.add("d-none");
+    world = null;
+
+
+}
+
+function toIntroduction() {
+    document.getElementById("menu_section").classList.add("d-none");
+    document.getElementById("introduction_section").classList.remove("d-none");
+
 }

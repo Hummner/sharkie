@@ -21,10 +21,12 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas
         this.keyboard = keyboard;
-       
+
         this.draw();
         this.setWorld();
         this.run();
+        this.spawnEndboss();
+
 
     }
 
@@ -32,8 +34,21 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.throwAmmo();
-            this.meleeAttackA()
+            this.meleeAttackA();
+            
+
         }, 100);
+    }
+
+    spawnEndboss() {
+        let spawnEndboss = setInterval(() => {
+            if (this.charachter.x > 500) {
+                let endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
+                endboss.animate();
+                this.playSounds("./audio/endboss-intro.ogg", 0.1)
+                clearInterval(spawnEndboss)
+            }
+        }, 500);
     }
 
     checkCollisions() {
@@ -100,23 +115,23 @@ class World {
 
     playBackgroundMusic(volume) {
         let randomInterval = 5000;
-            setTimeout(() => {
-                let music = new Audio("./audio/music.mp3");
-                music.volume = volume;
-                music.loop = true;
-                music.play();
-                setInterval(() => {
-                    let bulb = new Audio("./audio/bulb.wav");
-                    bulb.volume = volume + 0.1;
-                    bulb.play();
-                    randomInterval = 1000 + Math.random() * 4000;
-                }, randomInterval);
-                    
-                
+        setTimeout(() => {
+            let music = new Audio("./audio/music.mp3");
+            music.volume = volume;
+            music.loop = true;
+            music.play();
+            setInterval(() => {
+                let bulb = new Audio("./audio/bulb.wav");
+                bulb.volume = volume + 0.1;
+                bulb.play();
+                randomInterval = 1000 + Math.random() * 4000;
+            }, randomInterval);
 
-            }, 500);
-        };
-    
+
+
+        }, 500);
+    };
+
 
 
 
@@ -198,13 +213,13 @@ class World {
 
 
 
-        
+
         this.addObjectsToMap(this.level.backgrounds);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poisonBottle);
         this.addObjectsToMap(this.ammo);
         this.addObjectsToMap(this.slash);
-        
+
 
 
 
@@ -217,7 +232,7 @@ class World {
         this.addObjectsToMap(this.level.barricade);
 
 
-        
+
         this.ctx.translate(-this.camera_x, 0);
 
         this.addToMap(this.hpStatus);

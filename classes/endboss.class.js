@@ -1,6 +1,6 @@
 class Endboss extends MovableObject {
 
-    y = -200;
+    y = -800;
     width = 500;
     height = 600;
     offset = {
@@ -27,22 +27,50 @@ class Endboss extends MovableObject {
 
     ];
 
+    INTRO_IMAGES = [
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/1.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/2.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/3.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/4.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/5.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/6.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/7.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/8.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/9.png",
+        "./img/2.Enemy/3 Final Enemy/1.Introduce/10.png"
+    ]
+
 
     constructor() {
 
-        super().loadImage(this.WALKING_IMAGES[0]);
+        super().loadImage(this.INTRO_IMAGES[0]);
+        this.loadImages(this.INTRO_IMAGES)
         this.loadImages(this.WALKING_IMAGES);
-        this.animate();
-        this.x = 5500;
+    
+        this.x = 550;
 
 
     }
 
 
     animate() {
+        let introCounter = 0;
+        this.y = -200;
         setInterval(() => {
-            this.playAnimation(this.WALKING_IMAGES)
-        }, 150)
+
+                if (introCounter < 10) {
+                    this.playAnimation(this.INTRO_IMAGES);
+                    introCounter++;
+                } else {
+                    this.playAnimation(this.WALKING_IMAGES)
+                    
+                }
+          
+
+
+
+        }, 150);
+
     }
 
 }

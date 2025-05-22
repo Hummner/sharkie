@@ -233,6 +233,8 @@ body {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    position: absolute;
+    bottom: -100px;
 }
 
 .mute-menu {
@@ -255,3 +257,30 @@ body {
     cursor: pointer;
     color: red;
 }
+
+.end-screen {
+    position: absolute;
+    background: url("./img/6.Botones/Tittles/Game Over/Recurso 12.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.restart-section h3 {
+    width: 200px;
+    margin: 6px 0;
+}
+
+.restart-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    
+}
+

@@ -48,6 +48,9 @@ class World {
 
         this.stopInterval();
         this.level = null;
+
+
+        gameEnd();
     }
 
 
@@ -63,12 +66,12 @@ class World {
             this.checkCollisions();
             this.throwAmmo();
             this.meleeAttackA();
-            if (this.charachter.hp == 0) {
+            if (this.charachter.y <= (-200)) {
                 this.stopMusic();
+                console.log("end");
+                this.playSounds("./audio/gameover.wav", 0.2)
+                this.stopGame();
 
-                setTimeout(() => {
-                    this.stopGame();
-                }, 2000);
             }
 
 

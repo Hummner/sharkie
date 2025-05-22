@@ -86,20 +86,38 @@ function stopTheGame() {
         world.stopGame();
         level1 = null;
         world = null;
+
     }
 }
+
+function gameEnd() {
+    document.getElementById("end_screen").classList.remove("d-none");
+    document.getElementById("button_desktop").classList.add("d-none");
+  
+    
+
+
+}
+
+function restartGame() {
+    startGame();
+}
+
 
 
 function startGame() {
     init();
-    loadCanvas();
     getMusicSetup();
     world.startMusic();
+    loadCanvas();
 }
 
 function loadCanvas() {
     document.getElementById("game_canvas").classList.remove("d-none");
     document.getElementById("menu_section").classList.add("d-none");
+     document.getElementById("end_screen").classList.add("d-none");
+    document.getElementById("button_desktop").classList.remove("d-none");
+
 }
 
 function fullscreen() {
@@ -138,7 +156,7 @@ function muteSound() {
         world.musicMute = true;
         saveMusicSetup(true);
     } else {
-        
+
         musicMute = false;
         world.musicMute = false;
         world.startMusic();
@@ -149,12 +167,12 @@ function muteSound() {
 
 function getMusicSetup() {
     let m = localStorage.getItem("musicMute");
-    if(m === "true") return true
-    if(m === "false") return false
-    
+    if (m === "true") return true
+    if (m === "false") return false
+
 }
 
 function saveMusicSetup(setup) {
     localStorage.setItem("musicMute", setup);
-    
+
 }

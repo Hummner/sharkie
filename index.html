@@ -98,7 +98,7 @@
             </div>
         </section>
         <section id="legal_notice" class="introduction-section d-none">
-             <div class="introduction-back">
+            <div class="introduction-back">
                 <div class="back-button" onclick="backToMain()">
                     <img class="back-icon" src="./img/icon/arrow-1293392_1280.png" alt="">
                     <p>Back</p>
@@ -139,17 +139,30 @@
                 <h4>Disclaimer</h4> <br>
 
                 <p>Despite careful content control, I assume no liability for the content of external links. The
-                operators of the linked pages are solely responsible for their content.</p>
+                    operators of the linked pages are solely responsible for their content.</p>
             </div>
         </section>
         <section id="game_canvas" class="game-canvas d-none">
-            <div class="mute-music-icon">
-                <img src="./img/icon/unmute-157187_1280.png" onclick="muteSound()">
-                
+            <div class="mute-music-icon" onclick="muteSound()">
+                <img src="./img/icon/unmute-157187_1280.png" >
             </div>
-    
+
+
             <canvas id="canvas" width="720px" height="480px"></canvas>
-            <div class="buttons-desktop">
+            <div class="end-screen d-none" id="end_screen">
+                <div class="restart-section">
+                    <p>You are dead! Try it again!</p>
+                    <h3 onclick="restartGame(); event.stopPropagation()">Restart</h3>
+                    <h3 onclick="backToMain()">Main menu</h3>
+                </div>
+            </div>
+            <!-- <img  src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt=""> -->
+
+
+            </div>
+
+
+            <div id="button_desktop" class="buttons-desktop">
                 <h3 onclick="fullscreen()">FULLSCREEN</h3>
                 <h3 onclick="backToMain()">Main menu</h3>
             </div>

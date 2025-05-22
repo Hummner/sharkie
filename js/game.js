@@ -79,6 +79,16 @@ headings.forEach(el => {
 });
 
 
+function stopTheGame() {
+    if (world) {
+        
+        world.stopGame();
+        level1 = null;
+        world = null;
+    }
+}
+
+
 function startGame() {
     init();
     loadCanvas();
@@ -91,7 +101,7 @@ function loadCanvas() {
 
 function fullscreen() {
     let canvas = document.getElementById("canvas");
-        canvas.requestFullscreen();
+    canvas.requestFullscreen();
 
 }
 
@@ -99,7 +109,10 @@ function backToMain() {
     document.getElementById("introduction_section").classList.add("d-none");
     document.getElementById("menu_section").classList.remove("d-none");
     document.getElementById("game_canvas").classList.add("d-none");
-    world = null;
+    document.getElementById("legal_notice").classList.add("d-none");
+    stopTheGame();
+
+
 
 
 }
@@ -108,4 +121,9 @@ function toIntroduction() {
     document.getElementById("menu_section").classList.add("d-none");
     document.getElementById("introduction_section").classList.remove("d-none");
 
+}
+
+function toLegalNotice() {
+    document.getElementById("menu_section").classList.add("d-none");
+    document.getElementById("legal_notice").classList.remove("d-none");
 }

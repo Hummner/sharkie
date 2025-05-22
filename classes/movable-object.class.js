@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     lastHit;
     acceleration = 1;
     attack;
+    stoppableInterval = [];
 
 
 

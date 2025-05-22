@@ -1,4 +1,8 @@
 class World {
+
+
+
+    stoppableInterval = [];
     charachter = new Character();
     hpStatus = new StatusBar();
     coinStatus = new CoinStatusbar();
@@ -7,10 +11,13 @@ class World {
     ammo = [];
     slash = [];
     soundspool = [];
+    music;
+    bulbsound;
 
 
 
-    level = level1;
+
+    level;
 
     ctx;
     canvas;
@@ -21,7 +28,8 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas
         this.keyboard = keyboard;
-
+        this.level = level1;
+        this.playBackgroundMusic(0.1);
         this.draw();
         this.setWorld();
         this.run();
@@ -30,25 +38,52 @@ class World {
 
     }
 
+    stopGame() {
+        this.stopMusic();
+        this.charachter.stoppableInterval.forEach(i => {
+            this.stoppableInterval.push(i)
+        });
+
+        this.stopInterval();
+        this.level = null;
+    }
+
+    stopInterval() {
+        this.stoppableInterval.forEach(i => {
+            clearInterval(i);
+        })
+    }
+
     run() {
-        setInterval(() => {
+        let runInterval = setInterval(() => {
             this.checkCollisions();
             this.throwAmmo();
             this.meleeAttackA();
-            
+            if (this.charachter.hp == 0) {
+                this.stopMusic();
+                
+                setTimeout(() => {
+                    this.stopGame();
+                }, 2000);
+            }
+
 
         }, 100);
+        this.stoppableInterval.push(runInterval);
+        console.log(runInterval);
+
     }
 
     spawnEndboss() {
         let spawnEndboss = setInterval(() => {
-            if (this.charachter.x > 500) {
+            if (this.charachter.x > 4800) {
                 let endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
                 endboss.animate();
-                this.playSounds("./audio/endboss-intro.ogg", 0.1)
+                this.playSounds("./audio/endboss-intro.ogg", 0.5)
                 clearInterval(spawnEndboss)
             }
         }, 500);
+        this.stoppableInterval.push(spawnEndboss)
     }
 
     checkCollisions() {
@@ -114,23 +149,21 @@ class World {
     }
 
     playBackgroundMusic(volume) {
-        let randomInterval = 5000;
         setTimeout(() => {
-            let music = new Audio("./audio/music.mp3");
-            music.volume = volume;
-            music.loop = true;
-            music.play();
-            setInterval(() => {
-                let bulb = new Audio("./audio/bulb.wav");
-                bulb.volume = volume + 0.1;
-                bulb.play();
-                randomInterval = 1000 + Math.random() * 4000;
-            }, randomInterval);
-
-
-
+            if (!this.music) {
+                this.music = new Audio("./audio/music.mp3");
+                this.music.volume = volume;
+                this.music.loop = true;
+                this.music.play();
+            }
         }, 500);
     };
+
+    stopMusic() {
+        this.music.pause();
+        this.music.currentTime = 0;
+
+    }
 
 
 
@@ -208,6 +241,7 @@ class World {
 
 
     draw() {
+        if (!this.level) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.ctx.translate(this.camera_x, 0);
 

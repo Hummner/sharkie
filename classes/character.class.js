@@ -141,7 +141,8 @@ class Character extends MovableObject {
         let timesRun = 0;
 
         //Moving
-        setInterval(() => {
+        let moveInterval = setInterval(() => {
+             
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight()
                 this.moveBackgroundRight();
@@ -203,7 +204,8 @@ class Character extends MovableObject {
             }
         }, 100);
 
-
+        this.stoppableInterval.push(moveInterval);
+        this.stoppableInterval.push(animations)
 
     }
 

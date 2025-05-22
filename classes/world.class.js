@@ -13,6 +13,7 @@ class World {
     soundspool = [];
     music;
     bulbsound;
+    musicMute;
 
 
 
@@ -24,12 +25,13 @@ class World {
     keyboard;
     camera_x = 0;
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, musicMute) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas
         this.keyboard = keyboard;
         this.level = level1;
-        this.playBackgroundMusic(0.1);
+        this.musicMute = musicMute
+
         this.draw();
         this.setWorld();
         this.run();
@@ -48,6 +50,8 @@ class World {
         this.level = null;
     }
 
+
+
     stopInterval() {
         this.stoppableInterval.forEach(i => {
             clearInterval(i);
@@ -61,7 +65,7 @@ class World {
             this.meleeAttackA();
             if (this.charachter.hp == 0) {
                 this.stopMusic();
-                
+
                 setTimeout(() => {
                     this.stopGame();
                 }, 2000);
@@ -143,25 +147,40 @@ class World {
     }
 
     playSounds(url, volume) {
-        let newSound = new Audio(url);
-        newSound.volume = volume;
-        newSound.play();
+        if (!this.musicMute) {
+            let newSound = new Audio(url);
+            newSound.volume = volume;
+            newSound.play();
+
+        }
+
     }
 
     playBackgroundMusic(volume) {
-        setTimeout(() => {
-            if (!this.music) {
-                this.music = new Audio("./audio/music.mp3");
-                this.music.volume = volume;
-                this.music.loop = true;
-                this.music.play();
-            }
-        }, 500);
+
+
+        this.music = new Audio("./audio/music.mp3");
+        this.music.volume = volume;
+        this.music.loop = true;
+
+
     };
 
     stopMusic() {
-        this.music.pause();
-        this.music.currentTime = 0;
+        if (this.music) {
+            this.music.pause();
+            this.music.currentTime = 0;
+
+        }
+
+
+    }
+
+    startMusic() {
+        if (!this.musicMute) {
+            this.playBackgroundMusic(0.1);
+            this.music.play();
+        }
 
     }
 

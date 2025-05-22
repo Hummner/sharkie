@@ -2,12 +2,13 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let button;
+let musicMute = getMusicSetup();
 
 
 function init() {
     canvas = document.getElementById("canvas");
     startLevel();
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, musicMute);
 }
 
 window.addEventListener("keydown", (key) => {
@@ -81,7 +82,7 @@ headings.forEach(el => {
 
 function stopTheGame() {
     if (world) {
-        
+
         world.stopGame();
         level1 = null;
         world = null;
@@ -92,6 +93,8 @@ function stopTheGame() {
 function startGame() {
     init();
     loadCanvas();
+    getMusicSetup();
+    world.startMusic();
 }
 
 function loadCanvas() {
@@ -126,4 +129,32 @@ function toIntroduction() {
 function toLegalNotice() {
     document.getElementById("menu_section").classList.add("d-none");
     document.getElementById("legal_notice").classList.remove("d-none");
+}
+
+function muteSound() {
+    if (!musicMute) {
+        world.stopMusic();
+        musicMute = true;
+        world.musicMute = true;
+        saveMusicSetup(true);
+    } else {
+        
+        musicMute = false;
+        world.musicMute = false;
+        world.startMusic();
+        saveMusicSetup(false);
+    }
+
+}
+
+function getMusicSetup() {
+    let m = localStorage.getItem("musicMute");
+    if(m === "true") return true
+    if(m === "false") return false
+    
+}
+
+function saveMusicSetup(setup) {
+    localStorage.setItem("musicMute", setup);
+    
 }

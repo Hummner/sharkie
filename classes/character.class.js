@@ -13,6 +13,7 @@ class Character extends MovableObject {
     thunderDead;
 
 
+
     offset = {
         top: 140,
         bottom: 60,

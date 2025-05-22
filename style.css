@@ -85,8 +85,8 @@ h3:hover,
 
 h1 {
     color: white;
-    font-size: 60px;
-    margin-bottom: 100px;
+    font-size: 30px;
+    margin-bottom: 40px;
 }
 
 body {
@@ -199,4 +199,59 @@ body {
 
 * {
     letter-spacing: 0.2rem;
+}
+
+.mute-music-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+.mute-music-icon {
+    position: absolute;
+    border: 3px solid white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    background-color: #7FFFE0;
+}
+
+.mute-music-icon:hover {
+    background-color: #aefde9;
+}
+
+.game-canvas {
+    position: relative;
+}
+
+.buttons-desktop {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.mute-menu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #7FFFE0;
+    font-family: 14px;
+    height: 80px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: 20px;
+}
+
+.mute-menu span:hover {
+    cursor: pointer;
+    color: red;
 }

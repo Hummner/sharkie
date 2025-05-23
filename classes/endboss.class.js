@@ -8,10 +8,10 @@ class Endboss extends MovableObject {
     speedY = 0;
     currentImageOnlyOneAnimation;
     offset = {
-        top: 300,
-        bottom: 140,
-        left: 50,
-        right: 100
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
     }
 
     WALKING_IMAGES = [
@@ -76,20 +76,15 @@ class Endboss extends MovableObject {
         this.loadImages(this.WALKING_IMAGES);
         this.loadImages(this.HURT_IMAGES);
         this.loadImages(this.DEAD_IMAGES);
-
-
         this.x = 5500;
-
-
     }
 
 
     animate() {
         let introCounter = 0;
-        let attackCounter = 0
         this.y = -200;
+        this.speed = 0;
         setInterval(() => {
-
             if (introCounter < 10) {
                 this.playAnimation(this.INTRO_IMAGES);
                 introCounter++;
@@ -97,20 +92,16 @@ class Endboss extends MovableObject {
 
             } else if (this.isDead()) {
                 this.playOnlyOneAnimation(this.DEAD_IMAGES, this.currentImageOnlyOneAnimation == this.DEAD_IMAGES.length);
-                this.y -= 10;
+                
+                this.y -= 15;
             } else if (this.isHurt()) {
                 this.playOnlyOneAnimation(this.HURT_IMAGES, this.currentImageOnlyOneAnimation > this.HURT_IMAGES.length);
             } else {
                 this.playAnimation(this.WALKING_IMAGES);
+                this.speed += 2;
                 this.moveLeft();
 
             }
-
-
-
-
         }, 150);
-
     }
-
 }

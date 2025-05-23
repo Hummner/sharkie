@@ -117,19 +117,13 @@ class MovableObject extends DrawableObject {
     }
 
 
-
-
-
-    // if(charachter.x + charachter.width > Chicken.x && Character.y + charachter.height > Chicken.y && charachter.x < Chicken.x && charachter.y < Chicken.y + Chicken.height) {
-
-    // }
-
     isColliding(mo) {
-        return this.x + this.width - this.offset.right > mo.x + mo.offset.left && //jobb also jobbra-balra
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && // jobb also fel -le
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right && // bal felso - jobbra balra eltolas
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom; // bal also - fel - le
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left && 
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && 
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right && 
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom; 
     }
+
 
     hit() {
 
@@ -145,6 +139,7 @@ class MovableObject extends DrawableObject {
 
     }
 
+
     thunderHit() {
         if (this.hp > 0) {
             setTimeout(() => {
@@ -156,8 +151,6 @@ class MovableObject extends DrawableObject {
             return this.thunderDead = true;
         }
     }
-
-
 
 
     isDead() {
@@ -186,11 +179,4 @@ class MovableObject extends DrawableObject {
             return false
         }
     }
-
-
-
-
-
-
-
 }

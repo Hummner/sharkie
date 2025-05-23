@@ -283,3 +283,19 @@ body {
     
 }
 
+
+.mobile-buttons {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+
+}
+
+
+.mobile-buttons img {
+    width: 50px;
+    height: 50px;
+}
+

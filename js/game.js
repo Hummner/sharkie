@@ -68,18 +68,6 @@ window.addEventListener("keyup", (key) => {
 });
 
 
-const sound = document.getElementById('hoverSound');
-const headings = document.querySelectorAll('h2, h3');
-
-headings.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        // Set to start if still playing
-        sound.currentTime = 0;
-        sound.play();
-    });
-});
-
-
 function stopTheGame() {
     if (world) {
 

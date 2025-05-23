@@ -1,25 +1,16 @@
 class World {
-
-
-
     stoppableInterval = [];
     charachter = new Character();
     hpStatus = new StatusBar();
     coinStatus = new CoinStatusbar();
     poisionStatus = new PoisonStatus();
-
     ammo = [];
     slash = [];
     soundspool = [];
     music;
     bulbsound;
     musicMute;
-
-
-
-
     level;
-
     ctx;
     canvas;
     keyboard;
@@ -31,28 +22,22 @@ class World {
         this.keyboard = keyboard;
         this.level = level1;
         this.musicMute = musicMute
-
         this.draw();
         this.setWorld();
         this.run();
         this.spawnEndboss();
-
-
     }
+
 
     stopGame() {
         this.stopMusic();
         this.charachter.stoppableInterval.forEach(i => {
             this.stoppableInterval.push(i)
         });
-
         this.stopInterval();
         this.level = null;
-
-
         gameEnd();
     }
-
 
 
     stopInterval() {
@@ -67,7 +52,7 @@ class World {
             this.checkCollisions();
             this.throwAmmo();
             this.meleeAttackA();
-            
+
             if (this.charachter.y <= (-200)) {
                 this.stopMusic();
                 console.log("end");
@@ -77,11 +62,11 @@ class World {
             }
 
             if (endboss.y <= (-400)) {
-                 this.stopMusic();
+                this.stopMusic();
                 console.log("win");
                 this.playSounds("./audio/win.wav", 1)
                 this.stopGame();
-            } 
+            }
 
 
         }, 100);
@@ -103,6 +88,9 @@ class World {
     }
 
     checkCollisions() {
+
+        this.checkEnemyHitWithBubble()
+
         this.level.enemies.forEach(enemy => {
             if (this.charachter.isColliding(enemy)) {
                 if (enemy.thunderstrike) {
@@ -116,28 +104,7 @@ class World {
             }
         });
 
-        this.level.enemies.forEach(enemy => {
-            const hitAmmo = this.ammo.find(a => enemy.isColliding(a));
-            const meleehit = this.slash.find(s => enemy.isColliding(s));
-            const endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
-            
-            if (enemy == endboss && hitAmmo) {
-                console.log("ENBOSS hit");
-                this.ammo.splice(this.ammo, 1);
-                enemy.currentImageOnlyOneAnimation = 0;
-                enemy.lastHit = new Date().getTime();
-                enemy.isHurt();
-                enemy.hp -= 100;
-                
-                
-            } else if ((hitAmmo || meleehit) && enemy != endboss) {
-                this.ammo.splice(this.ammo, 1);
-                console.log("hit");
-                enemy.hp = 0;
-                enemy.currentImageOnlyOneAnimation = 0;
 
-            }
-        });
 
         this.level.coins.forEach(coin => {
             if (this.charachter.isColliding(coin)) {
@@ -154,8 +121,37 @@ class World {
                 this.playSounds("./audio/bottleCollect.wav", 0.1)
             }
         });
+    }
 
 
+    checkEnemyHitWithBubble() {
+        this.level.enemies.forEach(enemy => {
+            const hitAmmo = this.ammo.find(a => enemy.isColliding(a));
+            const meleehit = this.slash.find(s => enemy.isColliding(s));
+            const endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
+            if (enemy == endboss && hitAmmo) {
+                this.endbossHit(enemy);
+            } else if ((hitAmmo || meleehit) && enemy != endboss) {
+                this.ammo.splice(this.ammo, 1);
+                console.log("hit");
+                enemy.hp = 0;
+                enemy.currentImageOnlyOneAnimation = 0;
+            }
+        });
+    }
+
+
+    endbossHit(enemy) {
+        this.playSounds("./audio/endboss_hurt.wav", 0.3)
+        this.ammo.splice(this.ammo, 1);
+        enemy.currentImageOnlyOneAnimation = 0;
+        enemy.lastHit = new Date().getTime();
+        enemy.isHurt();
+        if (this.poisionStatus.percentage != 0) {
+            enemy.hp -= 150;
+        } else {
+            enemy.hp -= 100;
+        }
     }
 
     collectCoin(coin) {
@@ -209,13 +205,7 @@ class World {
     }
 
 
-
-
-
-
-
     throwAmmo() {
-
         if (this.keyboard.SPACE && !this.charachter.isHurt() && this.ammo.length == 0 && !this.charachter.isDead() && !this.charachter.attackTime) {
             this.charachter.attackTime = true;
             setTimeout(() => {
@@ -225,28 +215,19 @@ class World {
                     this.charachter.currentImageOnlyOneAnimation = 0;
                     this.poisionStatus.percentage -= 25;
                     this.poisionStatus.setPercentage(this.poisionStatus.percentage);
-
-                    console.log("Poison")
-
                 } else {
                     let bubble = new Ammo(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
                     this.ammo.push(bubble);
                     this.charachter.currentImageOnlyOneAnimation = 0;
                 }
                 this.playSounds("./audio/shoot.wav", 0.5)
-
-
-
-            }, 750);
-
-
+            }, 350);
             setTimeout(() => {
                 this.charachter.attackTime = false;
-            }, 850)
+            }, 350)
             setTimeout(() => {
                 this.ammo = [];
-            }, 1500)
-
+            }, 1300)
         }
     }
 

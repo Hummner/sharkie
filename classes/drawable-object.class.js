@@ -48,18 +48,18 @@ class DrawableObject {
     }
 
     drawFrameRed(ctx) {
-        // if( this instanceof Barricade) {
-        // const x = this.x + this.offset.left;
-        // const y = this.y + this.offset.top;
-        // const width = this.width - this.offset.left - this.offset.right;
-        // const height = this.height - this.offset.top - this.offset.bottom;
+        if( this instanceof Endboss) {
+        const x = this.x + this.offset.left;
+        const y = this.y + this.offset.top;
+        const width = this.width - this.offset.left - this.offset.right;
+        const height = this.height - this.offset.top - this.offset.bottom;
 
-        // ctx.beginPath();
-        // ctx.lineWidth = "2";
-        // ctx.strokeStyle = "red";
-        // ctx.rect(x, y, width, height);
-        // ctx.stroke();
-        // }
+        ctx.beginPath();
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "red";
+        ctx.rect(x, y, width, height);
+        ctx.stroke();
+        }
     }
 
 }

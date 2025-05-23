@@ -91,12 +91,21 @@ function stopTheGame() {
 }
 
 function gameEnd() {
-    document.getElementById("end_screen").classList.remove("d-none");
+    let endScreen = document.getElementById("end_screen");
+    let endText = document.getElementById("end_text");
+    if (world.charachter.hp <= 0) {
+        endScreen.style.background = "url('./img/6.Botones/Tittles/Game Over/Recurso 12.png')";
+        endText.innerHTML = "You are dead! Try it again!";
+    } else {
+        endScreen.style.background = "url('./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png')";
+        endText.innerHTML = "";
+    }
+    endScreen.style.backgroundColor = "rgba(0, 0, 0, 0.5);"
+    endScreen.style.backgroundSize = "cover";
+    endScreen.style.backgroundRepeat = "no-repeat";
+    endScreen.style.backgroundPosition = "top";
+    endScreen.classList.remove("d-none")
     document.getElementById("button_desktop").classList.add("d-none");
-  
-    
-
-
 }
 
 function restartGame() {
@@ -115,7 +124,7 @@ function startGame() {
 function loadCanvas() {
     document.getElementById("game_canvas").classList.remove("d-none");
     document.getElementById("menu_section").classList.add("d-none");
-     document.getElementById("end_screen").classList.add("d-none");
+    document.getElementById("end_screen").classList.add("d-none");
     document.getElementById("button_desktop").classList.remove("d-none");
 
 }

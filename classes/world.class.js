@@ -63,9 +63,11 @@ class World {
 
     run() {
         let runInterval = setInterval(() => {
+            const endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
             this.checkCollisions();
             this.throwAmmo();
             this.meleeAttackA();
+            
             if (this.charachter.y <= (-200)) {
                 this.stopMusic();
                 console.log("end");
@@ -73,6 +75,13 @@ class World {
                 this.stopGame();
 
             }
+
+            if (endboss.y <= (-400)) {
+                 this.stopMusic();
+                console.log("win");
+                this.playSounds("./audio/win.wav", 1)
+                this.stopGame();
+            } 
 
 
         }, 100);
@@ -110,7 +119,19 @@ class World {
         this.level.enemies.forEach(enemy => {
             const hitAmmo = this.ammo.find(a => enemy.isColliding(a));
             const meleehit = this.slash.find(s => enemy.isColliding(s));
-            if (hitAmmo || meleehit) {
+            const endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
+            
+            if (enemy == endboss && hitAmmo) {
+                console.log("ENBOSS hit");
+                this.ammo.splice(this.ammo, 1);
+                enemy.currentImageOnlyOneAnimation = 0;
+                enemy.lastHit = new Date().getTime();
+                enemy.isHurt();
+                enemy.hp -= 100;
+                
+                
+            } else if ((hitAmmo || meleehit) && enemy != endboss) {
+                this.ammo.splice(this.ammo, 1);
                 console.log("hit");
                 enemy.hp = 0;
                 enemy.currentImageOnlyOneAnimation = 0;

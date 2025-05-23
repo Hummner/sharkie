@@ -29,9 +29,7 @@ class CoinStatusbar extends DrawableObject {
 
         let path = this.COIN_BAR[this.resolveImageIndex()]
         this.img = this.imageCache[path]
-        this.scalingUp = true;
-        this.scale = 1;
-        this.update();
+ 
 
 
     }
@@ -49,18 +47,6 @@ class CoinStatusbar extends DrawableObject {
             return 1
         } else {
             return 0
-        }
-    }
-
-    update() {
-        // Animation: wachsen und wieder zurück
-        if (this.scalingUp) {
-            this.scale += 0.05;
-            if (this.scale >= 1.3) {
-                this.scalingUp = false;
-            }
-        } else if (this.scale > 1) {
-            this.scale -= 0.05;
         }
     }
 

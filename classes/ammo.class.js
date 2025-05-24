@@ -11,6 +11,4 @@ class Ammo extends MovableObject {
         this.speedY = 5;
         this.throw();
     }
-
-    
 }

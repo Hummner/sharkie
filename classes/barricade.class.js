@@ -1,5 +1,4 @@
 class Barricade extends MovableObject {
-
     offset = {
         top: this.height - (this.height / 2),
         bottom: 0,

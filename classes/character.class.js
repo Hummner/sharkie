@@ -11,17 +11,15 @@ class Character extends MovableObject {
     attackTime = false;
     meleeAttackTime;
     thunderDead;
-
-
-
+    world;
+    longIdleTimer = 0;
     offset = {
         top: 140,
         bottom: 60,
         left: 50,
         right: 45
-    }
+    };
 
-    world;
 
     DEAD_IMAGES = [
         "./img/1.Sharkie/6.dead/1.Poisoned/1.png",
@@ -36,7 +34,9 @@ class Character extends MovableObject {
         "./img/1.Sharkie/6.dead/1.Poisoned/10.png",
         "./img/1.Sharkie/6.dead/1.Poisoned/11.png",
         "./img/1.Sharkie/6.dead/1.Poisoned/12.png"
-    ]
+    ];
+
+
     LONG_IDLE_IMAGES = [
         "./img/1.Sharkie/2.Long_IDLE/I1.png",
         "./img/1.Sharkie/2.Long_IDLE/I2.png",
@@ -52,7 +52,9 @@ class Character extends MovableObject {
         "./img/1.Sharkie/2.Long_IDLE/I12.png",
         "./img/1.Sharkie/2.Long_IDLE/I13.png",
         "./img/1.Sharkie/2.Long_IDLE/I14.png"
-    ]
+    ];
+
+
     IDLE_IMAGES = [
         "./img/1.Sharkie/1.IDLE/1.png",
         "./img/1.Sharkie/1.IDLE/2.png",
@@ -72,7 +74,9 @@ class Character extends MovableObject {
         "./img/1.Sharkie/1.IDLE/16.png",
         "./img/1.Sharkie/1.IDLE/17.png",
         "./img/1.Sharkie/1.IDLE/18.png"
-    ]
+    ];
+
+
     WALKING_IMAGES = [
         "./img/1.Sharkie/3.Swim/1.png",
         "./img/1.Sharkie/3.Swim/2.png",
@@ -83,24 +87,27 @@ class Character extends MovableObject {
 
     ];
 
+
     HURT_IMAGES = [
         "./img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
         "./img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
         "./img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
         "./img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
         "./img/1.Sharkie/5.Hurt/1.Poisoned/5.png"
-    ]
+    ];
+
 
     ATTACK_BUBBLE = [
-        
+
         "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
-       
+
         "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png",
-     
+
         "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png",
-   
+
         "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png"
-    ]
+    ];
+
 
     FIN_SLAP = [
         "./img/1.Sharkie/4.Attack/Fin slap/2.png",
@@ -110,14 +117,14 @@ class Character extends MovableObject {
         "./img/1.Sharkie/4.Attack/Fin slap/6.png",
         "./img/1.Sharkie/4.Attack/Fin slap/7.png",
         "./img/1.Sharkie/4.Attack/Fin slap/8.png"
-    ]
+    ];
+
 
     THUNDER_SRIKE = [
         "./img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
         "./img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
         "./img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
-    ]
-
+    ];
 
 
     constructor() {
@@ -132,79 +139,44 @@ class Character extends MovableObject {
         this.loadImages(this.THUNDER_SRIKE);
         this.applyGravity();
         this.animate();
-
-
     }
 
 
-
     animate() {
-        let longIdleTimer = 0;
+
 
         //Moving
-        let moveInterval = setInterval(() => {
-             
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
-                this.moveRight()
-                this.moveBackgroundRight();
-                this.otherDirection = false;
-                longIdleTimer = 0;
-
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 100 && !this.isDead()) {
-                this.moveLeft();
-                this.moveBackgroundLeft();
-                this.otherDirection = true;
-                longIdleTimer = 0;
-            }
-
-            if (this.world.keyboard.UP && this.y > 0 && !this.isDead() && this.speedY < 3) {
-                this.moveUp(10)
-                this.world.playSounds("./audio/jump.wav", 0.5)
-                longIdleTimer = 0;
-            }
-
-            if (this.world.keyboard.DOWN && !this.isDead() && this.speedY > -10) {
-                console.log(this.speedY)
-                this.moveDown()
-                this.world.playSounds("./audio/jump.wav", 0.5)
-                longIdleTimer = 0;
-                
-            }
-
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60)
+        let moveInterval = this.characterMovingAnimation();
+        this.refreshCamera();
 
 
         //Moving Animations
 
         let animations = setInterval(() => {
-            longIdleTimer++;
+            this.longIdleTimer++;
             if (this.isDead()) {
-             
                 this.playOnlyOneAnimation(this.DEAD_IMAGES, this.currentImageOnlyOneAnimation == 12)
                 this.moveUp(5)
-                longIdleTimer = 0;
+                this.longIdleTimer = 0;
             } else if (this.thunderDead) {
                 this.playOnlyOneAnimation(this.THUNDER_SRIKE, !this.isHurt())
-                longIdleTimer = 0;
+                this.longIdleTimer = 0;
             } else if (this.isHurt()) {
                 this.playAnimation(this.HURT_IMAGES)
-                longIdleTimer = 0;
+                this.longIdleTimer = 0;
             } else if (this.isShoot()) {
                 this.playOnlyOneAnimation(this.ATTACK_BUBBLE, !this.isShoot());
-                longIdleTimer = 0;
+                this.longIdleTimer = 0;
             } else if (this.isMeleeAttack() && !this.isHurt()) {
                 this.playOnlyOneAnimation(this.FIN_SLAP, !this.isMeleeAttack());
-                longIdleTimer = 0;
+                this.longIdleTimer = 0;
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.WALKING_IMAGES);
-                longIdleTimer = 0;
+                this.longIdleTimer = 0;
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.WALKING_IMAGES);
-                longIdleTimer = 0;
-            }else if(longIdleTimer > 100) {
+                this.longIdleTimer = 0;
+            } else if (this.longIdleTimer > 100) {
                 this.playOnlyOneAnimation(this.LONG_IDLE_IMAGES, this.stopAnimation(this.LONG_IDLE_IMAGES))
             } else {
                 this.playAnimation(this.IDLE_IMAGES);
@@ -215,6 +187,48 @@ class Character extends MovableObject {
         this.stoppableInterval.push(moveInterval);
         this.stoppableInterval.push(animations)
 
+    }
+
+
+    characterMovingAnimation() {
+        return setInterval(() => {
+
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
+                this.moveRight()
+                this.moveBackgroundRight();
+                this.otherDirection = false;
+                this.longIdleTimer = 0;
+            }
+
+            if (this.world.keyboard.LEFT && this.x > 100 && !this.isDead()) {
+                this.moveLeft();
+                this.moveBackgroundLeft();
+                this.otherDirection = true;
+                this.longIdleTimer = 0;
+            }
+
+            if (this.world.keyboard.UP && this.y > 0 && !this.isDead() && this.speedY < 3) {
+                this.moveUp(10)
+                this.world.playSounds("./audio/jump.wav", 0.5)
+                this.longIdleTimer = 0;
+            }
+
+            if (this.world.keyboard.DOWN && !this.isDead() && this.speedY > -10) {
+                console.log(this.speedY)
+                this.moveDown()
+                this.world.playSounds("./audio/jump.wav", 0.5)
+                this.longIdleTimer = 0;
+            }
+
+
+        }, 1000 / 60)
+    }
+
+
+    refreshCamera() {
+        setInterval(() => {
+            this.world.camera_x = -this.x + 100;
+        }, 1000 / 60);
     }
 
 

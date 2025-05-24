@@ -177,7 +177,9 @@ class Character extends MovableObject {
                 this.playAnimation(this.WALKING_IMAGES);
                 this.longIdleTimer = 0;
             } else if (this.longIdleTimer > 100) {
-                this.playOnlyOneAnimation(this.LONG_IDLE_IMAGES, this.stopAnimation(this.LONG_IDLE_IMAGES))
+                this.playOnlyOneAnimation(this.LONG_IDLE_IMAGES, this.stopAnimation(this.LONG_IDLE_IMAGES));
+                if (this.longIdleTimer == 100) return this.world.playSounds("./audio/sleep.wav", 0.5)
+                this.world.playSounds("./audio/sleep.wav", 0.5)
             } else {
                 this.playAnimation(this.IDLE_IMAGES);
                 this.currentImageOnlyOneAnimation = 0;

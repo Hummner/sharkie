@@ -52,6 +52,10 @@ class MovableObject extends DrawableObject {
 
     }
 
+    stopAnimation(arr) {
+        if (this.currentImageOnlyOneAnimation == arr.length) return true
+    }
+
     moveLeft() {
         this.x -= this.speed;
 

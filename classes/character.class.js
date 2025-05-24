@@ -139,7 +139,7 @@ class Character extends MovableObject {
 
 
     animate() {
-        let timesRun = 0;
+        let longIdleTimer = 0;
 
         //Moving
         let moveInterval = setInterval(() => {
@@ -147,25 +147,29 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.moveRight()
                 this.moveBackgroundRight();
-                this.otherDirection = false
+                this.otherDirection = false;
+                longIdleTimer = 0;
 
             }
 
             if (this.world.keyboard.LEFT && this.x > 100 && !this.isDead()) {
                 this.moveLeft();
                 this.moveBackgroundLeft();
-                this.otherDirection = true
+                this.otherDirection = true;
+                longIdleTimer = 0;
             }
 
             if (this.world.keyboard.UP && this.y > 0 && !this.isDead() && this.speedY < 3) {
                 this.moveUp(10)
                 this.world.playSounds("./audio/jump.wav", 0.5)
+                longIdleTimer = 0;
             }
 
             if (this.world.keyboard.DOWN && !this.isDead() && this.speedY > -10) {
                 console.log(this.speedY)
                 this.moveDown()
                 this.world.playSounds("./audio/jump.wav", 0.5)
+                longIdleTimer = 0;
                 
             }
 
@@ -176,32 +180,35 @@ class Character extends MovableObject {
         //Moving Animations
 
         let animations = setInterval(() => {
-
+            longIdleTimer++;
             if (this.isDead()) {
              
                 this.playOnlyOneAnimation(this.DEAD_IMAGES, this.currentImageOnlyOneAnimation == 12)
                 this.moveUp(5)
-                
-                
-                
-        
-               
-                
-        
+                longIdleTimer = 0;
             } else if (this.thunderDead) {
                 this.playOnlyOneAnimation(this.THUNDER_SRIKE, !this.isHurt())
+                longIdleTimer = 0;
             } else if (this.isHurt()) {
                 this.playAnimation(this.HURT_IMAGES)
+                longIdleTimer = 0;
             } else if (this.isShoot()) {
                 this.playOnlyOneAnimation(this.ATTACK_BUBBLE, !this.isShoot());
+                longIdleTimer = 0;
             } else if (this.isMeleeAttack() && !this.isHurt()) {
                 this.playOnlyOneAnimation(this.FIN_SLAP, !this.isMeleeAttack());
+                longIdleTimer = 0;
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.WALKING_IMAGES);
+                longIdleTimer = 0;
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.WALKING_IMAGES);
+                longIdleTimer = 0;
+            }else if(longIdleTimer > 100) {
+                this.playOnlyOneAnimation(this.LONG_IDLE_IMAGES, this.stopAnimation(this.LONG_IDLE_IMAGES))
             } else {
                 this.playAnimation(this.IDLE_IMAGES);
+                this.currentImageOnlyOneAnimation = 0;
             }
         }, 100);
 

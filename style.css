@@ -9,7 +9,7 @@ canvas {
     width: 100%;
     border-radius: 20px;
     border: 2px solid white;
-        box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 main {
@@ -101,23 +101,23 @@ body {
     background-size: cover;
     background-position: center;
     box-sizing: border-box;
-    
+
 }
 
- #rotate-warning {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      font-size: 1.5em;
-      text-align: center;
-      padding-top: 40vh;
-      z-index: 9999;
-    }
+#rotate-warning {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 40vh;
+    z-index: 9999;
+}
 
 .start {
     font-size: 40px;
@@ -129,7 +129,7 @@ body {
 }
 
 .back-icon {
-    width: 100px;
+    width: 46px;
     filter: brightness(0) saturate(100%) invert(13%) sepia(40%) saturate(5045%) hue-rotate(264deg) brightness(98%) contrast(101%);
 }
 
@@ -169,6 +169,7 @@ body {
 
 .back-button {
     max-width: 300px;
+    height: 64px;
     display: flex;
     align-items: center;
     font-size: 40px;
@@ -296,7 +297,7 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100%;
-    
+
 }
 
 
@@ -315,13 +316,25 @@ body {
     height: 50px;
 }
 
+.shoot-btn-mobile {
+   position: absolute;
+    left: 28px;
+    bottom: 50px;
+}
+
+.attack-btn-mobile {
+   position: absolute;
+    right: 28px;
+    bottom: 50px;
+}
 
 
 
-@media only screen and (max-width: 720px){
+
+@media only screen and (max-width: 720px) {
     .game-canvas {
         width: 100% !important;
-    
+
     }
 
     canvas {
@@ -330,15 +343,15 @@ body {
         display: block;
     }
 
-    
+
 
 
 }
 
-@media only screen and (max-height: 480px){
+@media only screen and (max-height: 480px) {
     .game-canvas {
         height: 100vh;
-     
+
     }
 
     canvas {
@@ -353,7 +366,6 @@ body {
     body {
         padding: 0;
         overflow: hidden;
-        
+
     }
 }
-

@@ -67,6 +67,54 @@ window.addEventListener("keyup", (key) => {
 
 });
 
+function mobileTouchsBtn() {
+    
+    document.getElementById("btnLeft").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.LEFT = true;
+})
+
+document.getElementById("btnLeft").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.LEFT = false;
+})
+
+    document.getElementById("btnRight").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = true;
+})
+
+document.getElementById("btnRight").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = false;
+})
+
+    document.getElementById("btnUp").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.UP = true;
+})
+
+document.getElementById("btnUp").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.UP = false;
+})
+
+    document.getElementById("btnDown").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.DOWN = true;
+})
+
+document.getElementById("btnDown").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.DOWN = false;
+})
+
+
+
+}
+
+
+
 
 function stopTheGame() {
     if (world) {
@@ -173,3 +221,55 @@ function saveMusicSetup(setup) {
     localStorage.setItem("musicMute", setup);
 
 }
+
+
+ function checkOrientation() {
+      const minWidth = 720; // Mindestbreite, ab der Querformat nötig ist
+      const warning = document.getElementById('rotate-warning');
+
+      if (window.innerWidth <= minWidth && window.innerHeight > window.innerWidth) {
+        // Gerät ist im Hochformat UND kleiner als Mindestbreite
+        warning.style.display = 'block';
+      } else {
+        warning.style.display = 'none';
+      }
+    }
+
+    // Beim Laden und beim Drehen prüfen
+    window.addEventListener('load', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+
+
+
+    function isMobileOrTablet() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Check for Android, iPhone, iPad, etc.
+    return /android|iphone|ipad|ipod|windows phone/i.test(userAgent.toLowerCase());
+  }
+
+  function doSomethingForMobile() {
+    alert("This is a mobile or tablet device!");
+    mobileTouchsBtn();
+    document.getElementById("button_desktop").classList.add("d-none");
+    // Hier deine Funktion einfügen
+  }
+
+  // Ausführen beim Laden
+  window.addEventListener('load', () => {
+    if (isMobileOrTablet()) {
+      doSomethingForMobile();
+    }}
+  )
+
+  function hasOverflow(el) {
+  return el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight;
+}
+
+
+  document.querySelectorAll('*').forEach(el => {
+  if (hasOverflow(el)) {
+    console.log('Overflow detected in:', el);
+  }
+});

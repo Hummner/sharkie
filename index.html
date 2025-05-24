@@ -33,7 +33,10 @@
 </head>
 
 <body id="body">
-    <h1>Sharkie Escape – Depths of the Ocean</h1>
+    <div id="rotate-warning">
+        Please rotate your device (landscape mode recommended)
+    </div>
+    <h1 class="titel">Sharkie Escape – Depths of the Ocean</h1>
     <main id="main">
         <section id="menu_section" class="">
             <div class="main-menu">
@@ -148,12 +151,12 @@
 
             <div id="mobile_buttons" class="mobile-buttons">
                 <div class="right-panel">
-                    <img src="./img/icon/left.png" alt="">
-                    <img src="./img/icon/right.png" alt="">
+                    <img id="btnUp" src="./img/icon/up.png" alt="">
+                    <img id="btnDown" src="./img/icon/down.png" alt="">
                 </div>
                 <div class="left-panel">
-                    <img src="./img/icon/up.png" alt="">
-                    <img src="./img/icon/down.png" alt="">
+                    <img id="btnLeft" src="./img/icon/left.png" alt="">
+                    <img id="btnRight" src="./img/icon/right.png" alt="">
                 </div>
             </div>
             <canvas id="canvas" width="720px" height="480px"></canvas>
@@ -164,9 +167,6 @@
                     <h3 onclick="backToMain()">Main menu</h3>
                 </div>
             </div>
-            <!-- <img  src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt=""> -->
-
-
             </div>
 
 

@@ -6,22 +6,100 @@
  * It handles movement, animations, idle behavior, attack logic and state transitions.
  */
 class Character extends MovableObject {
-    // Basic properties
+    /**
+     * Height of the object.
+    * @type {number}
+    */
     height = 250;
+
+    /**
+     * Width of the object.
+     * @type {number}
+     */
     width = 200;
+
+    /**
+     * X-position of the object.
+     * @type {number}
+     */
     x = 0;
+
+    /**
+     * Y-position of the object.
+     * @type {number}
+     */
     y = 0;
+
+    /**
+     * Horizontal movement speed.
+     * @type {number}
+     */
     speed = 10;
+
+    /**
+     * Health points of the object.
+     * @type {number}
+     */
     hp = 100;
+
+    /**
+     * Flag indicating whether the character is in long idle animation.
+     * @type {boolean}
+     */
     longIdle;
+
+    /**
+     * Vertical movement speed (e.g., for jumping or falling).
+     * @type {number}
+     */
     speedY = 0;
+
+    /**
+     * Index of the current frame in single-run animations.
+     * @type {number}
+     */
     currentImageOnlyOneAnimation = 0;
+
+    /**
+     * Flag indicating if an attack is currently happening.
+     * @type {boolean}
+     */
     attackTime = false;
+
+    /**
+     * Timer or flag for a melee attack.
+     * @type {any}
+     */
     meleeAttackTime;
+
+    /**
+     * Flag indicating whether the character died from an electric attack.
+     * @type {boolean}
+     */
     thunderDead;
+
+    /**
+     * Reference to the game world object.
+     * @type {any}
+     */
     world;
+
+    /**
+     * Timer value to control when the long idle starts.
+     * @type {number}
+     */
     longIdleTimer = 1;
+
+    /**
+     * Visual or audio effect shown when the character is sleeping.
+     * @type {any}
+     */
     sleepingEffect;
+
+    /**
+     * Timestamp of the last time a sleeping sound was played.
+     * @type {number}
+     */
     lastSleepingSoundTime = 0;
 
 

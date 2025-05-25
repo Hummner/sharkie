@@ -3,13 +3,41 @@
  * Extends MovableObject for movement and animation logic.
  */
 class PufferFish extends MovableObject {
+    /**
+    * Height of the object.
+    * @type {number}
+    */
     height = 70;
-    width = 110;
-    hp = 100;
-    timeCounter;
-    walkingAnimationInterval;
-    walkingInterval;
 
+    /**
+     * Width of the object.
+     * @type {number}
+     */
+    width = 110;
+
+    /**
+     * Health points of the object.
+     * @type {number}
+     */
+    hp = 100;
+
+    /**
+     * Counter used to track time-based events or animations.
+     * @type {number}
+     */
+    timeCounter;
+
+    /**
+     * Interval ID for the walking animation.
+     * @type {number}
+     */
+    walkingAnimationInterval;
+
+    /**
+     * Interval ID for general walking logic.
+     * @type {number}
+     */
+    walkingInterval;
     /**
      * Collision detection offsets.
      * Adjusts the collision box to better fit the sprite.
@@ -67,7 +95,7 @@ class PufferFish extends MovableObject {
         this.walkingInterval = this.enemyWalking();
         this.walkingAnimationInterval = this.enemyWalkingAnimation();
     };
-    
+
 
     /**
      * Handles horizontal movement.
@@ -83,7 +111,7 @@ class PufferFish extends MovableObject {
             }
         }, 1000 / 60);
     };
-    
+
 
     /**
      * Plays walking or death animation based on state.

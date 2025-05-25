@@ -31,6 +31,10 @@ section {
     max-width: 1920px;
 }
 
+.description p {
+    font-size: 16px;
+}
+
 .mobile-mainMenu {
     position: absolute;
     top: 0;
@@ -202,7 +206,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 32px;
 }
 
 .enemy {

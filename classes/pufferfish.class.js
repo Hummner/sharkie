@@ -1,8 +1,8 @@
 /**
- * Class representing a chicken (puffer fish enemy) in the game.
+ * Class representing a PufferFish (puffer fish enemy) in the game.
  * Extends MovableObject for movement and animation logic.
  */
-class Chicken extends MovableObject {
+class PufferFish extends MovableObject {
     height = 70;
     width = 110;
     hp = 100;
@@ -45,7 +45,7 @@ class Chicken extends MovableObject {
     ];
 
     /**
-     * Creates an instance of Chicken.
+     * Creates an instance of PufferFish.
      * @param {number} y - The vertical (y-axis) spawn position of the enemy.
      */
     constructor(y) {

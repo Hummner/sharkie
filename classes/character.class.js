@@ -34,7 +34,7 @@ class Character extends MovableObject {
     };
 
 
-    // === IMAGE PATHS ===
+    /** @type {string[]} Images used when Character is dead */
     DEAD_IMAGES = [
         "./img/1.Sharkie/6.dead/1.Poisoned/1.png",
         "./img/1.Sharkie/6.dead/1.Poisoned/2.png",
@@ -50,7 +50,7 @@ class Character extends MovableObject {
         "./img/1.Sharkie/6.dead/1.Poisoned/12.png"
     ];
 
-
+    /** @type {string[]} Images used when Character is in idle after 10sec */
     LONG_IDLE_IMAGES = [
         "./img/1.Sharkie/2.Long_IDLE/I1.png",
         "./img/1.Sharkie/2.Long_IDLE/I2.png",
@@ -68,7 +68,7 @@ class Character extends MovableObject {
         "./img/1.Sharkie/2.Long_IDLE/I14.png"
     ];
 
-
+    /** @type {string[]} Images used when Character is idle */
     IDLE_IMAGES = [
         "./img/1.Sharkie/1.IDLE/1.png",
         "./img/1.Sharkie/1.IDLE/2.png",
@@ -90,7 +90,7 @@ class Character extends MovableObject {
         "./img/1.Sharkie/1.IDLE/18.png"
     ];
 
-
+    /** @type {string[]} Images used when Character is walking */
     WALKING_IMAGES = [
         "./img/1.Sharkie/3.Swim/1.png",
         "./img/1.Sharkie/3.Swim/2.png",
@@ -101,7 +101,7 @@ class Character extends MovableObject {
 
     ];
 
-
+    /** @type {string[]} Images used when Character is hurt */
     HURT_IMAGES = [
         "./img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
         "./img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
@@ -110,7 +110,7 @@ class Character extends MovableObject {
         "./img/1.Sharkie/5.Hurt/1.Poisoned/5.png"
     ];
 
-
+    /** @type {string[]} Images used when Character is attacking */
     ATTACK_BUBBLE = [
         "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
         "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png",
@@ -118,7 +118,7 @@ class Character extends MovableObject {
         "./img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png"
     ];
 
-
+    /** @type {string[]} Images used when Character is melee attacking */
     FIN_SLAP = [
         "./img/1.Sharkie/4.Attack/Fin slap/2.png",
         "./img/1.Sharkie/4.Attack/Fin slap/3.png",
@@ -129,7 +129,7 @@ class Character extends MovableObject {
         "./img/1.Sharkie/4.Attack/Fin slap/8.png"
     ];
 
-
+    /** @type {string[]} Images used when Character is dead from Jellyfish */
     THUNDER_SRIKE = [
         "./img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
         "./img/1.Sharkie/5.Hurt/2.Electric shock/2.png",

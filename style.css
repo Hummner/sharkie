@@ -14,9 +14,6 @@ canvas {
 
 main {
     width: 100%;
-
-
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,18 +23,26 @@ main {
 }
 
 section {
-
-
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
     justify-content: space-between;
     max-width: 1920px;
-
-
-
 }
+
+.mobile-mainMenu {
+    position: absolute;
+    top: 0;
+    right: 100px;
+}
+
+.mobile-backToMain {
+    font-size: 16px;
+    padding: 4px 8px;
+}
+
+
 
 .main-menu {
     width: 100%;
@@ -49,7 +54,6 @@ section {
 
 .menu {
     width: fit-content;
-
 }
 
 .canvas-footer {
@@ -100,7 +104,6 @@ body {
     background-size: cover;
     background-position: center;
     box-sizing: border-box;
-
 }
 
 #rotate-warning {
@@ -120,7 +123,6 @@ body {
 
 .start {
     font-size: 40px;
-
 }
 
 .d-none {
@@ -151,12 +153,9 @@ body {
     align-items: center;
 }
 
-
 .arrow-img {
     width: 220px;
 }
-
-
 
 .d-img {
     width: 80px;
@@ -191,10 +190,8 @@ body {
 .description {
     width: 100%;
     max-width: 1000px;
-
     margin-bottom: 24px;
     text-align: center;
-
 }
 
 .description li {
@@ -296,9 +293,7 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100%;
-
 }
-
 
 .mobile-buttons {
     position: absolute;
@@ -306,9 +301,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 90%;
-
 }
-
 
 .mobile-buttons img {
     width: 50px;
@@ -327,13 +320,9 @@ body {
     bottom: 50px;
 }
 
-
-
-
 @media only screen and (max-width: 720px) {
     .game-canvas {
         width: 100% !important;
-
     }
 
     canvas {
@@ -341,16 +330,11 @@ body {
         height: unset;
         display: block;
     }
-
-
-
-
 }
 
 @media only screen and (max-height: 480px) {
     .game-canvas {
         height: 100vh;
-
     }
 
     canvas {
@@ -365,6 +349,5 @@ body {
     body {
         padding: 0;
         overflow: hidden;
-
     }
 }

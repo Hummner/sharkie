@@ -1,6 +1,9 @@
 /**
- * Represents the main character in the game.
- * Inherits movement and physics from MovableObject.
+ * @class Character
+ * @extends MovableObject
+ * 
+ * This class represents the player's main character (Sharkie).
+ * It handles movement, animations, idle behavior, attack logic and state transitions.
  */
 class Character extends MovableObject {
     // Basic properties
@@ -153,19 +156,19 @@ class Character extends MovableObject {
 
 
     /**
-     * Starts all animations and registers intervals.
+     * Initializes all movement and animation loops.
      */
     animate() {
-        let moveInterval = this.characterMoving();
+        const moveInterval = this.characterMoving();
+        const animationInterval = this.characterMovingAnimation();
         this.refreshCamera();
-        let animations = this.characterMovingAnimation();
-        this.stoppableInterval.push(moveInterval, animations);
+        this.stoppableInterval.push(moveInterval, animationInterval);
     };
 
 
     /**
-     * Animates the character based on its current state (every 100ms).
-     * @returns {number} The interval ID
+     * Runs every 100ms and checks current state for appropriate animation.
+     * @returns {number} Interval ID
      */
     characterMovingAnimation() {
         return setInterval(() => {
@@ -183,8 +186,8 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles movement input (every frame, ~60 FPS).
-     * @returns {number} The interval ID
+     * Runs ~60 times per second, handles movement based on input.
+     * @returns {number} Interval ID
      */
     characterMoving() {
         return setInterval(() => {
@@ -197,7 +200,7 @@ class Character extends MovableObject {
 
 
     /**
-     * Updates the camera to follow the character.
+     * Keeps the camera centered on the character.
      */
     refreshCamera() {
         setInterval(() => {
@@ -207,7 +210,7 @@ class Character extends MovableObject {
 
 
     /**
-     * Plays a sleeping sound if enough idle time has passed.
+     * Plays sleeping audio if the character has been idle long enough.
      */
     sleeping() {
         const now = Date.now();
@@ -221,20 +224,20 @@ class Character extends MovableObject {
 
 
     /**
-     * Checks if the character is idle and stops the sleeping sound if necessary.
+     * Increases the idle timer. Stops sleep audio if user input resumes.
      */
     checkLongIdle() {
-        if (this.longIdleTimer == 0 && this.sleepingEffect) {
+        if (this.longIdleTimer === 0 && this.sleepingEffect) {
             this.sleepingEffect.pause();
             this.sleepingEffect.currentTime = 0;
         }
         this.longIdleTimer++;
     };
-    
+
 
     /**
-     * Handles character death animation.
-     * @returns {boolean} True if this state is active
+     * Handles death animation and logic.
+     * @returns {boolean}
      */
     characterDeath() {
         if (this.isDead()) {
@@ -245,11 +248,11 @@ class Character extends MovableObject {
         }
         return false;
     };
-    
+
 
     /**
-     * Handles thunder shock death animation.
-     * @returns {boolean} True if this state is active
+     * Handles thunder strike death animation.
+     * @returns {boolean}
      */
     characterThunderDeath() {
         if (this.thunderDead) {
@@ -259,11 +262,11 @@ class Character extends MovableObject {
         }
         return false;
     };
-    
+
 
     /**
-     * Handles hurt animation.
-     * @returns {boolean} True if this state is active
+     * Plays hurt animation.
+     * @returns {boolean}
      */
     characterHurt() {
         if (this.isHurt()) {
@@ -273,11 +276,11 @@ class Character extends MovableObject {
         }
         return false;
     };
-    
+
 
     /**
-     * Handles attack animations (ranged and melee).
-     * @returns {boolean} True if this state is active
+     * Executes ranged or melee attacks.
+     * @returns {boolean}
      */
     characterAttack() {
         if (this.isShoot()) {
@@ -292,11 +295,11 @@ class Character extends MovableObject {
         }
         return false;
     };
-    
+
 
     /**
-     * Handles walking/swimming animation if movement keys are pressed.
-     * @returns {boolean} True if movement is active
+     * Starts walking animation if movement is detected.
+     * @returns {boolean}
      */
     characterMovement() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.isAboveGround()) {
@@ -306,11 +309,11 @@ class Character extends MovableObject {
         }
         return false;
     };
-    
+
 
     /**
-     * Handles long idle animation and sleeping sound.
-     * @returns {boolean} True if long idle is active
+     * Triggers long idle animation and sound.
+     * @returns {boolean}
      */
     characterLongIdle() {
         if (this.longIdleTimer > 100) {
@@ -320,9 +323,9 @@ class Character extends MovableObject {
         }
         return false;
     };
-    
 
-    /** Moves the character to the right if allowed. */
+
+    /** Moves the character right if possible. */
     characterMoveRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
             this.moveRight();
@@ -331,9 +334,9 @@ class Character extends MovableObject {
             this.longIdleTimer = 0;
         }
     };
-    
 
-    /** Moves the character to the left if allowed. */
+
+    /** Moves the character left if possible. */
     characterMoveLeft() {
         if (this.world.keyboard.LEFT && this.x > 100 && !this.isDead()) {
             this.moveLeft();
@@ -342,9 +345,9 @@ class Character extends MovableObject {
             this.longIdleTimer = 0;
         }
     };
-    
 
-    /** Makes the character jump upward if allowed. */
+
+    /** Makes the character swim upward. */
     characterMoveUp() {
         if (this.world.keyboard.UP && this.y > 0 && !this.isDead() && this.speedY < 3) {
             this.moveUp(10);
@@ -352,9 +355,9 @@ class Character extends MovableObject {
             this.longIdleTimer = 0;
         }
     };
-    
 
-    /** Makes the character dive downward if allowed. */
+
+    /** Makes the character swim downward. */
     characterMoveDown() {
         if (this.world.keyboard.DOWN && !this.isDead() && this.speedY > -10) {
             this.moveDown();

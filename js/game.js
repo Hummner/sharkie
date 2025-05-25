@@ -113,7 +113,7 @@ function restartGame() {
 function startGame() {
     init();
     getMusicSetup();
-    world.startMusic();
+    world.sound.startMusic();
     loadCanvas();
 }
 
@@ -160,14 +160,14 @@ function toLegalNotice() {
 /** Toggles game sound on and off and stores the setting in localStorage. */
 function muteSound() {
     if (!musicMute) {
-        world.stopMusic();
+        world.sound.stopMusic();
         musicMute = true;
         world.musicMute = true;
         saveMusicSetup(true);
     } else {
         musicMute = false;
         world.musicMute = false;
-        world.startMusic();
+        world.sound.startMusic();
         saveMusicSetup(false);
     }
 }

@@ -452,7 +452,7 @@ class Character extends MovableObject {
     characterMoveUp() {
         if (this.world.keyboard.UP && this.y > 0 && !this.isDead() && this.speedY < 3) {
             this.moveUp(10);
-            this.world.playSounds("./audio/jump.wav", 0.5);
+            this.world.sound.playSounds("./audio/jump.wav", 0.5);
             this.longIdleTimer = 0;
         }
     };
@@ -462,7 +462,7 @@ class Character extends MovableObject {
     characterMoveDown() {
         if (this.world.keyboard.DOWN && !this.isDead() && this.speedY > -10) {
             this.moveDown();
-            this.world.playSounds("./audio/jump.wav", 0.5);
+            this.world.sound.playSounds("./audio/jump.wav", 0.5);
             this.longIdleTimer = 0;
         }
     };

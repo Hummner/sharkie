@@ -53,6 +53,9 @@ class World {
     /** Camera offset on the x-axis */
     camera_x = 0;
 
+    sound = new Sound();
+
+
     /**
      * Creates a new game world.
      * @param {HTMLCanvasElement} canvas - The canvas to render the game on.
@@ -63,7 +66,7 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.level = level1; // assumes level1 is defined globally
+        this.level = level1;
         this.musicMute = musicMute;
         this.draw();
         this.setWorld();
@@ -74,11 +77,11 @@ class World {
 
     /** Stops the game and clears all intervals, stops music and triggers game end. */
     stopGame() {
-        this.stopMusic();
+        this.sound.stopMusic();
         this.charachter.stoppableInterval.forEach(i => this.stoppableInterval.push(i));
         this.stopInterval();
         this.level = null;
-        gameEnd(); // assumes gameEnd is a global function
+        gameEnd();
     };
 
 
@@ -107,8 +110,8 @@ class World {
     /** Checks if character fell off the map and stops game if true. */
     characterDead() {
         if (this.charachter.y <= -200) {
-            this.stopMusic();
-            this.playSounds("./audio/gameover.wav", 0.2);
+            this.sound.stopMusic();
+            this.sound.playSounds("./audio/gameover.wav", 0.2);
             this.stopGame();
         }
     };
@@ -120,8 +123,8 @@ class World {
      */
     endbossDead(endboss) {
         if (endboss && endboss.y <= -400) {
-            this.stopMusic();
-            this.playSounds("./audio/win.wav", 1);
+            this.sound.stopMusic();
+            this.sound.playSounds("./audio/win.wav", 1);
             this.stopGame();
         }
     };
@@ -134,7 +137,7 @@ class World {
                 let endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
                 if (endboss) {
                     endboss.animate();
-                    this.playSounds("./audio/endboss-intro.ogg", 0.5);
+                    this.sound.playSounds("./audio/endboss-intro.ogg", 0.5);
                     clearInterval(spawnEndboss);
                 }
             }
@@ -166,7 +169,7 @@ class World {
         this.level.poisonBottle.forEach(bottle => {
             if (this.charachter.isColliding(bottle)) {
                 this.collectBottle(bottle);
-                this.playSounds("./audio/bottleCollect.wav", 0.1);
+                this.sound.playSounds("./audio/bottleCollect.wav", 0.1);
             }
         });
     };
@@ -180,7 +183,7 @@ class World {
         this.level.coins.forEach(coin => {
             if (this.charachter.isColliding(coin)) {
                 this.collectCoin(coin);
-                this.playSounds("./audio/collect.wav", 0.1);
+                this.sound.playSounds("./audio/collect.wav", 0.1);
             }
         });
     };
@@ -196,7 +199,7 @@ class World {
             if (this.charachter.isColliding(enemy)) {
                 if (enemy.thunderstrike) {
                     this.charachter.thunderHit();
-                    this.playSounds("./audio/electric.wav", 0.1);
+                    this.sound.playSounds("./audio/electric.wav", 0.1);
                 } else {
                     this.charachter.hit();
                 }
@@ -227,7 +230,7 @@ class World {
      * @param {Enemy} enemy - The endboss enemy instance.
      */
     endbossHit(enemy) {
-        this.playSounds("./audio/endboss_hurt.wav", 0.3);
+         this.sound.playSounds("./audio/endboss_hurt.wav", 0.3);
         this.ammo.splice(this.ammo.indexOf(this.ammo.find(a => enemy.isColliding(a))), 1);
         enemy.currentImageOnlyOneAnimation = 0;
         enemy.lastHit = Date.now();
@@ -259,49 +262,6 @@ class World {
         this.poisionStatus.percentage += 25;
         this.poisionStatus.setPercentage(this.poisionStatus.percentage);
         this.level.poisonBottle.splice(this.level.poisonBottle.indexOf(bottle), 1);
-    };
-
-
-    /**
-     * Plays a sound effect if music is not muted.
-     * @param {string} url - Path to the audio file.
-     * @param {number} volume - Volume level from 0 to 1.
-     */
-    playSounds(url, volume) {
-        if (!this.musicMute) {
-            let newSound = new Audio(url);
-            newSound.volume = volume;
-            newSound.play();
-        }
-    };
-
-
-    /**
-     * Prepares background music with the given volume.
-     * @param {number} volume - Volume level from 0 to 1.
-     */
-    playBackgroundMusic(volume) {
-        this.music = new Audio("./audio/music.mp3");
-        this.music.volume = volume;
-        this.music.loop = true;
-    };
-
-
-    /** Stops and resets the background music. */
-    stopMusic() {
-        if (this.music) {
-            this.music.pause();
-            this.music.currentTime = 0;
-        }
-    };
-
-
-    /** Starts the background music if not muted. */
-    startMusic() {
-        if (!this.musicMute) {
-            this.playBackgroundMusic(0.1);
-            this.music.play();
-        }
     };
 
 
@@ -341,7 +301,7 @@ class World {
 
             this.ammo.push(bubble);
             this.charachter.currentImageOnlyOneAnimation = 0;
-            this.playSounds("./audio/shoot.wav", 0.5);
+            this.sound.playSounds("./audio/shoot.wav", 0.5);
         }, 350);
     };
 
@@ -370,7 +330,7 @@ class World {
                 let slashAttack = new Slash(this.charachter.x, this.charachter.y, this.charachter.otherDirection);
                 this.slash.push(slashAttack);
             }, 50);
-            this.playSounds("./audio/slash-short-short.wav", 0.5);
+            this.sound.playSounds("./audio/slash-short-short.wav", 0.5);
             this.clearMeleeAttackAnimation(slashAttackInterval);
         }
     };

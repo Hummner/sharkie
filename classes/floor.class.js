@@ -3,22 +3,40 @@
  * Inherits from MovableObject to allow movement and image rendering.
  */
 class Floor extends MovableObject {
-    /** @type {number} X-position of the floor */
+    /**
+    * X-position of the floor.
+    * @type {number}
+    */
     x = 0;
 
-    /** @type {number} Height of the floor */
+    /**
+     * Height of the floor.
+     * @type {number}
+     */
     height = 480;
 
-    /** @type {number} Width of the floor */
+    /**
+     * Width of the floor.
+     * @type {number}
+     */
     width = 720;
 
-    /** @type {number} Y-position of the floor */
+    /**
+     * Y-position of the floor.
+     * @type {number}
+     */
     y = 0;
 
-    /** @type {number} Movement speed of the floor */
+    /**
+     * Movement speed of the floor.
+     * @type {number}
+     */
     speed;
 
-    /** @type {number} Offset for collision or alignment (not used here) */
+    /**
+     * Offset for collision or alignment (not used here).
+     * @type {number}
+     */
     offset = 0;
 
     /**

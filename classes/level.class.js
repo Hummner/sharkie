@@ -2,25 +2,46 @@
  * Represents a level in the game, containing all entities and objects needed for gameplay.
  */
 class Level {
-    /** @type {MovableObject[]} Enemies present in the level */
+    /**
+    * Enemies present in the level.
+    * @type {MovableObject[]}
+    */
     enemies;
 
-    /** @type {MovableObject[]} Background layers of the level */
+    /**
+     * Background layers of the level.
+     * @type {MovableObject[]}
+     */
     backgrounds;
 
-    /** @type {MovableObject[]} Light elements in the level */
+    /**
+     * Light elements in the level.
+     * @type {MovableObject[]}
+     */
     light;
 
-    /** @type {Coin[]} Collectible coins in the level */
+    /**
+     * Collectible coins in the level.
+     * @type {Coin[]}
+     */
     coins;
 
-    /** @type {MovableObject[]} Poison bottles in the level */
+    /**
+     * Poison bottles in the level.
+     * @type {MovableObject[]}
+     */
     poisonBottle;
 
-    /** @type {MovableObject[]} Barricades that block the player's path */
+    /**
+     * Barricades that block the player's path.
+     * @type {MovableObject[]}
+     */
     barricade;
 
-    /** @type {number} X-coordinate that marks the end of the level */
+    /**
+     * X-coordinate that marks the end of the level.
+     * @type {number}
+     */
     level_end_x = 5300;
 
     /**

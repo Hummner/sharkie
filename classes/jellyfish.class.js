@@ -3,19 +3,34 @@
  * Inherits from MovableObject.
  */
 class JellyFish extends MovableObject {
-    /** @type {number} Width of the jellyfish */
+    /**
+    * Width of the jellyfish.
+    * @type {number}
+    */
     width = 100;
 
-    /** @type {number} Height of the jellyfish */
+    /**
+     * Height of the jellyfish.
+     * @type {number}
+     */
     height = 100;
 
-    /** @type {number} Y-position of the jellyfish */
+    /**
+     * Y-position of the jellyfish.
+     * @type {number}
+     */
     y = 0;
 
-    /** @type {boolean} Indicates whether the jellyfish can perform a thunderstrike */
+    /**
+     * Indicates whether the jellyfish can perform a thunderstrike.
+     * @type {boolean}
+     */
     thunderstrike = true;
 
-    /** @type {string[]} Image paths for the jellyfish walking (swimming) animation */
+    /**
+     * Image paths for the jellyfish walking (swimming) animation.
+     * @type {string[]}
+     */
     WALKING_IMAGES = [
         "img/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png",
         "img/2.Enemy/2 Jelly fish/Súper dangerous/Green 2.png",
@@ -51,7 +66,7 @@ class JellyFish extends MovableObject {
             this.moveUpAndDown(this.speedY);
         }, 100);
     };
-    
+
 
     /**
      * Moves the jellyfish up and down based on the current direction and speed.

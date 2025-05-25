@@ -1,0 +1,10 @@
+{
+  "source": {
+    "include": ["classes", "js", "levels"],
+    "includePattern": ".+\\.js$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+    "destination": "./docs"
+  }
+}

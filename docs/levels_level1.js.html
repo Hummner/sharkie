@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: levels/level1.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: levels/level1.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let level1;
+
+/**
+ * Initializes the game level with enemies, background layers,
+ * collectible coins, poison bottles, and barricades.
+ * Creates a new `Level` instance and assigns it to `level1`.
+ */
+function startLevel() {
+    level1 = new Level(
+        /**
+         * Array of enemy objects (pufferfishs, jellyfish, and endboss).
+         * PufferFish and jellyfish are placed at specific positions.
+         */
+        [
+            new PufferFish(300),
+            new PufferFish(150),
+            new PufferFish(300),
+            new PufferFish(150),
+            new PufferFish(300),
+            new PufferFish(150),
+            new PufferFish(300),
+            new PufferFish(150),
+            new JellyFish(5, 1000),
+            new JellyFish(8, 2500),
+            new JellyFish(10, 4000),
+            new JellyFish(15, 4100),
+            new Endboss()
+        ],
+        /** 
+         * Array of light effects or ambient objects (e.g., bubbles, lighting).
+         */
+        [
+            new Light()
+        ],
+
+        /** 
+         * Array of layered background images, repeated across the level width
+         * to simulate parallax scrolling. Each layer has a different speed.
+         */
+        [
+            new Background("img/3. Background/Layers/5. Water/D2.png", -719, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D2.png", -719, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D2.png", -719, 2),
+            new Background("img/3. Background/Layers/2. Floor/D2.png", -719, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D1.png", 0, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D1.png", 0, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D1.png", 0, 2),
+            new Background("img/3. Background/Layers/2. Floor/D1.png", 0, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D2.png", 719, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D2.png", 719, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D2.png", 719, 2),
+            new Background("img/3. Background/Layers/2. Floor/D2.png", 719, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D1.png", 719 * 2, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D1.png", 719 * 2, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D1.png", 719 * 2, 2),
+            new Background("img/3. Background/Layers/2. Floor/D1.png", 719 * 2, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D2.png", 719 * 3, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D2.png", 719 * 3, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D2.png", 719 * 3, 2),
+            new Background("img/3. Background/Layers/2. Floor/D2.png", 719 * 3, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D1.png", 719 * 4, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D1.png", 719 * 4, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D1.png", 719 * 4, 2),
+            new Background("img/3. Background/Layers/2. Floor/D1.png", 719 * 4, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D2.png", 719 * 5, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D2.png", 719 * 5, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D2.png", 719 * 5, 2),
+            new Background("img/3. Background/Layers/2. Floor/D2.png", 719 * 5, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D1.png", 719 * 6, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D1.png", 719 * 6, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D1.png", 719 * 6, 2),
+            new Background("img/3. Background/Layers/2. Floor/D1.png", 719 * 6, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D2.png", 719 * 7, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D2.png", 719 * 7, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D2.png", 719 * 7, 2),
+            new Background("img/3. Background/Layers/2. Floor/D2.png", 719 * 7, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D1.png", 719 * 8, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D1.png", 719 * 8, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D1.png", 719 * 8, 2),
+            new Background("img/3. Background/Layers/2. Floor/D1.png", 719 * 8, 0),
+
+            new Background("img/3. Background/Layers/5. Water/D2.png", 719 * 9, 6),
+            new Background("img/3. Background/Layers/3.Fondo 1/D2.png", 719 * 9, 3),
+            new Background("img/3. Background/Layers/4.Fondo 2/D2.png", 719 * 9, 2),
+            new Background("img/3. Background/Layers/2. Floor/D2.png", 719 * 9, 0),
+        ],
+
+        /** 
+         * Array of collectible coin objects placed throughout the level.
+         */
+        [
+            new Coin(200, 600),
+            new Coin(1300, 1500),
+            new Coin(2300, 0),
+            new Coin(2400, 0),
+            new Coin(2500, 0)
+        ],
+
+        /** 
+         * Array of poison bottle items used as ammo. Placed along the level path.
+         */
+        [
+            new PoisonBottle(400, 700),
+            new PoisonBottle(900, 1200),
+            new PoisonBottle(1300, 1500),
+            new PoisonBottle(3000, 3500),
+            new PoisonBottle(4200, 5000),
+            new PoisonBottle(4200, 5000),
+        ],
+
+        /**
+         * Array of barricade objects used to block player movement.
+         * Each barricade has a position, size, and image source.
+         */
+        [
+            new Barricade(3500, 300, 400, 200, "img/3. Background/Barrier/2.png"),
+            new Barricade(1000, 0, 400, 500, "img/3. Background/Barrier/1.png"),
+
+        ]
+    );
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ammo.html">Ammo</a></li><li><a href="Background.html">Background</a></li><li><a href="Barricade.html">Barricade</a></li><li><a href="Character.html">Character</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CoinStatusbar.html">CoinStatusbar</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Floor.html">Floor</a></li><li><a href="JellyFish.html">JellyFish</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="Light.html">Light</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="PoisonAmmo.html">PoisonAmmo</a></li><li><a href="PoisonBottle.html">PoisonBottle</a></li><li><a href="PoisonStatus.html">PoisonStatus</a></li><li><a href="PufferFish.html">PufferFish</a></li><li><a href="Slash.html">Slash</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#backToMain">backToMain</a></li><li><a href="global.html#buttonsForMobile">buttonsForMobile</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#gameEnd">gameEnd</a></li><li><a href="global.html#getMusicSetup">getMusicSetup</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isMobileOrTablet">isMobileOrTablet</a></li><li><a href="global.html#loadCanvas">loadCanvas</a></li><li><a href="global.html#mobileTouchsBtn">mobileTouchsBtn</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#saveMusicSetup">saveMusicSetup</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#startLevel">startLevel</a></li><li><a href="global.html#stopTheGame">stopTheGame</a></li><li><a href="global.html#toIntroduction">toIntroduction</a></li><li><a href="global.html#toLegalNotice">toLegalNotice</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 25 2025 15:12:25 GMT+0200 (közép-európai nyári idő)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -17,13 +17,22 @@ class CoinStatusbar extends DrawableObject {
         "./img/4. Marcadores/green/Coin/100_ copia 4.png"
     ];
 
-    /** @type {number} Current percentage of collected coins (0–100). */
+    /**
+    * Current percentage of collected coins (0–100).
+    * @type {number}
+    */
     percentage = 0;
 
-    /** @type {number} Scale factor for visual effects (optional). */
+    /**
+     * Scale factor for visual effects (optional).
+     * @type {number}
+     */
     scale = 1;
 
-    /** @type {boolean} Flag indicating if the bar is currently scaling up (for animation). */
+    /**
+     * Flag indicating if the bar is currently scaling up (for animation).
+     * @type {boolean}
+     */
     scalingUp = false;
 
     /**
@@ -49,7 +58,7 @@ class CoinStatusbar extends DrawableObject {
         const path = this.COIN_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     };
-    
+
 
     /**
      * Resolves the index of the image to be used based on the current percentage.

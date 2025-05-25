@@ -3,16 +3,28 @@
  * Inherits from MovableObject.
  */
 class Light extends MovableObject {
-    /** @type {number} X position of the light layer */
+    /**
+    * X position of the light layer.
+    * @type {number}
+    */
     x = 2000;
 
-    /** @type {number} Y position of the light layer */
+    /**
+     * Y position of the light layer.
+     * @type {number}
+     */
     y = -200;
 
-    /** @type {number} Width of the light layer */
+    /**
+     * Width of the light layer.
+     * @type {number}
+     */
     width = 2000;
 
-    /** @type {number} Height of the light layer */
+    /**
+     * Height of the light layer.
+     * @type {number}
+     */
     height = 1000;
 
     /**

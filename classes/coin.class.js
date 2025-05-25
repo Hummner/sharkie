@@ -3,13 +3,22 @@
  * Extends MovableObject and includes animation and random positioning.
  */
 class Coin extends MovableObject {
-    /** @type {number} Width of the coin object. */
+    /**
+    * Width of the coin object.
+    * @type {number}
+    */
     width = 50;
 
-    /** @type {number} Height of the coin object. */
+    /**
+     * Height of the coin object.
+     * @type {number}
+     */
     height = 50;
 
-    /** @type {number} Y-position of the coin. */
+    /**
+     * Y-position of the coin.
+     * @type {number}
+     */
     y = 300;
 
     /**

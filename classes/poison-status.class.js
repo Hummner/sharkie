@@ -4,7 +4,10 @@
  */
 class PoisonStatus extends DrawableObject {
 
-    /** @type {string[]} Paths to poison bar images representing different poison levels */
+    /** 
+     * Paths to poison bar images representing different poison levels.
+     * @type {string[]}
+     */
     POISON_BAR = [
         "./img/4. Marcadores/green/poisoned bubbles/0_ copia 2.png",
         "./img/4. Marcadores/green/poisoned bubbles/20_ copia 3.png",

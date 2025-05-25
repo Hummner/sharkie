@@ -3,19 +3,34 @@
  * Handles image loading, rendering, and optional hitbox drawing.
  */
 class DrawableObject {
-    /** @type {number} X-coordinate on the canvas */
+    /**
+    * X-coordinate on the canvas.
+    * @type {number}
+    */
     x = 120;
 
-    /** @type {number} Y-coordinate on the canvas */
+    /**
+     * Y-coordinate on the canvas.
+     * @type {number}
+     */
     y = 400;
 
-    /** @type {HTMLImageElement} The currently displayed image */
+    /**
+     * The currently displayed image.
+     * @type {HTMLImageElement}
+     */
     img;
 
-    /** @type {number} Height of the object */
+    /**
+     * Height of the object.
+     * @type {number}
+     */
     height = 100;
 
-    /** @type {number} Width of the object */
+    /**
+     * Width of the object.
+     * @type {number}
+     */
     width = 100;
 
     /**
@@ -57,7 +72,7 @@ class DrawableObject {
         this.img = new Image();
         this.img.src = path;
     };
-    
+
 
     /**
      * Preloads multiple images and stores them in the image cache.
@@ -71,6 +86,6 @@ class DrawableObject {
         });
     };
 
-    
-    
+
+
 }

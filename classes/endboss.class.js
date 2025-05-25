@@ -25,7 +25,7 @@ class Endboss extends MovableObject {
      * Health points.
      * @type {number}
      */
-    hp = 300;
+    hp = 500;
 
     /**
      * Horizontal speed.
@@ -154,6 +154,8 @@ class Endboss extends MovableObject {
             } else {
                 this.endbossAttack();
             }
+            this.speed += 1;
+            this.moveLeft();
         }, 150);
     };
 
@@ -163,7 +165,5 @@ class Endboss extends MovableObject {
      */
     endbossAttack() {
         this.playAnimation(this.WALKING_IMAGES);
-        this.speed += 1;
-        this.moveLeft();
     };
 }

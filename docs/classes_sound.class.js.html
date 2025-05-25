@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: classes/statusbar.class.js</title>
+    <title>JSDoc: Source: classes/sound.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: classes/statusbar.class.js</h1>
+    <h1 class="page-title">Source: classes/sound.class.js</h1>
 
     
 
@@ -26,74 +26,49 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Represents a health status bar.
- * Inherits from DrawableObject.
- */
-class StatusBar extends DrawableObject {
+            <pre class="prettyprint source linenums"><code>class Sound {
     /**
-     * Array of image paths representing health bar states.
-     * @type {string[]}
+     * Plays a sound effect if music is not muted.
+     * @param {string} url - Path to the audio file.
+     * @param {number} volume - Volume level from 0 to 1.
      */
-    HP_IMAGES = [
-        "./img/4. Marcadores/green/Life/0_  copia 3.png",
-        "./img/4. Marcadores/green/Life/20_ copia 4.png",
-        "./img/4. Marcadores/green/Life/40_  copia 3.png",
-        "./img/4. Marcadores/green/Life/60_  copia 3.png",
-        "./img/4. Marcadores/green/Life/80_  copia 3.png",
-        "./img/4. Marcadores/green/Life/100_  copia 2.png"
-    ];
-
-    /** 
-     * Current health percentage (0-100).
-     * @type {number}
-     */
-    percentage = 100;
-
-    /**
-     * Creates a new StatusBar instance, loads images and initializes properties.
-     */
-    constructor() {
-        super();
-        this.loadImages(this.HP_IMAGES);
-        this.setPercentage(100);
-        this.x = 10;
-        this.y = 5;
-        this.width = 150;
-        this.height = 45;
-    };
-
-
-    /**
-     * Updates the health percentage and sets the corresponding image.
-     * @param {number} percentage - The current health percentage.
-     */
-    setPercentage(percentage) {
-        this.percentage = percentage;
-        let path = this.HP_IMAGES[this.resolveImageIndex()];
-        this.img = this.imageCache[path];
-    };
-    
-
-    /**
-     * Determines the index of the image to use based on the current percentage.
-     * @returns {number} Index of the image in HP_IMAGES array.
-     */
-    resolveImageIndex() {
-        if (this.percentage == 100) {
-            return 5;
-        } else if (this.percentage > 80) {
-            return 4;
-        } else if (this.percentage > 60) {
-            return 3;
-        } else if (this.percentage > 40) {
-            return 2;
-        } else if (this.percentage > 20) {
-            return 1;
-        } else {
-            return 0;
+    playSounds(url, volume) {
+        if (!this.musicMute) {
+            let newSound = new Audio(url);
+            newSound.volume = volume;
+            newSound.play();
         }
     };
+
+
+    /**
+     * Prepares background music with the given volume.
+     * @param {number} volume - Volume level from 0 to 1.
+     */
+    playBackgroundMusic(volume) {
+        this.music = new Audio("./audio/music.mp3");
+        this.music.volume = volume;
+        this.music.loop = true;
+    };
+
+
+    /** Stops and resets the background music. */
+    stopMusic() {
+        if (this.music) {
+            this.music.pause();
+            this.music.currentTime = 0;
+        }
+    };
+
+
+    /** Starts the background music if not muted. */
+    startMusic() {
+        if (!this.musicMute) {
+            this.playBackgroundMusic(0.1);
+            this.music.play();
+        }
+    };
+
 }</code></pre>
         </article>
     </section>

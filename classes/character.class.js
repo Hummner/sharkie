@@ -1,4 +1,9 @@
+/**
+ * Represents the main character in the game.
+ * Inherits movement and physics from MovableObject.
+ */
 class Character extends MovableObject {
+    // Basic properties
     height = 250;
     width = 200;
     x = 0;
@@ -7,7 +12,7 @@ class Character extends MovableObject {
     hp = 100;
     longIdle;
     speedY = 0;
-    currentImageOnlyOneAnimation = 0
+    currentImageOnlyOneAnimation = 0;
     attackTime = false;
     meleeAttackTime;
     thunderDead;
@@ -15,6 +20,9 @@ class Character extends MovableObject {
     longIdleTimer = 1;
     sleepingEffect;
     lastSleepingSoundTime = 0;
+
+
+    /** Defines the pixel offset for collision detection */
     offset = {
         top: 140,
         bottom: 60,
@@ -23,6 +31,7 @@ class Character extends MovableObject {
     };
 
 
+    // === IMAGE PATHS ===
     DEAD_IMAGES = [
         "./img/1.Sharkie/6.dead/1.Poisoned/1.png",
         "./img/1.Sharkie/6.dead/1.Poisoned/2.png",
@@ -125,6 +134,9 @@ class Character extends MovableObject {
     ];
 
 
+    /**
+     * Initializes the character, loads images, and starts animation and gravity.
+     */
     constructor() {
         super().loadImage("./img/1.Sharkie/3.Swim/1.png");
         this.loadImages(this.WALKING_IMAGES);
@@ -137,18 +149,24 @@ class Character extends MovableObject {
         this.loadImages(this.THUNDER_SRIKE);
         this.applyGravity();
         this.animate();
-    }
+    };
 
 
+    /**
+     * Starts all animations and registers intervals.
+     */
     animate() {
         let moveInterval = this.characterMoving();
         this.refreshCamera();
         let animations = this.characterMovingAnimation();
-        this.stoppableInterval.push(moveInterval);
-        this.stoppableInterval.push(animations)
-    }
+        this.stoppableInterval.push(moveInterval, animations);
+    };
 
 
+    /**
+     * Animates the character based on its current state (every 100ms).
+     * @returns {number} The interval ID
+     */
     characterMovingAnimation() {
         return setInterval(() => {
             this.checkLongIdle();
@@ -161,9 +179,13 @@ class Character extends MovableObject {
             this.playAnimation(this.IDLE_IMAGES);
             this.currentImageOnlyOneAnimation = 0;
         }, 100);
-    }
+    };
 
 
+    /**
+     * Handles movement input (every frame, ~60 FPS).
+     * @returns {number} The interval ID
+     */
     characterMoving() {
         return setInterval(() => {
             this.characterMoveRight();
@@ -171,16 +193,22 @@ class Character extends MovableObject {
             this.characterMoveUp();
             this.characterMoveDown();
         }, 1000 / 60);
-    }
+    };
 
 
+    /**
+     * Updates the camera to follow the character.
+     */
     refreshCamera() {
         setInterval(() => {
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
-    }
+    };
 
 
+    /**
+     * Plays a sleeping sound if enough idle time has passed.
+     */
     sleeping() {
         const now = Date.now();
         if (now - this.lastSleepingSoundTime >= 4000 && !this.world.musicMute) {
@@ -189,18 +217,25 @@ class Character extends MovableObject {
             this.sleepingEffect.play();
             this.lastSleepingSoundTime = now;
         }
-    }
+    };
 
 
+    /**
+     * Checks if the character is idle and stops the sleeping sound if necessary.
+     */
     checkLongIdle() {
         if (this.longIdleTimer == 0 && this.sleepingEffect) {
             this.sleepingEffect.pause();
             this.sleepingEffect.currentTime = 0;
         }
         this.longIdleTimer++;
-    }
+    };
+    
 
-
+    /**
+     * Handles character death animation.
+     * @returns {boolean} True if this state is active
+     */
     characterDeath() {
         if (this.isDead()) {
             this.playOnlyOneAnimation(this.DEAD_IMAGES, this.stopAnimation(this.DEAD_IMAGES));
@@ -209,9 +244,13 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    }
+    };
+    
 
-
+    /**
+     * Handles thunder shock death animation.
+     * @returns {boolean} True if this state is active
+     */
     characterThunderDeath() {
         if (this.thunderDead) {
             this.playOnlyOneAnimation(this.THUNDER_SRIKE, !this.isHurt());
@@ -219,9 +258,13 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    }
+    };
+    
 
-
+    /**
+     * Handles hurt animation.
+     * @returns {boolean} True if this state is active
+     */
     characterHurt() {
         if (this.isHurt()) {
             this.playAnimation(this.HURT_IMAGES);
@@ -229,9 +272,13 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    }
+    };
+    
 
-
+    /**
+     * Handles attack animations (ranged and melee).
+     * @returns {boolean} True if this state is active
+     */
     characterAttack() {
         if (this.isShoot()) {
             this.playOnlyOneAnimation(this.ATTACK_BUBBLE, !this.isShoot());
@@ -244,9 +291,13 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    }
+    };
+    
 
-
+    /**
+     * Handles walking/swimming animation if movement keys are pressed.
+     * @returns {boolean} True if movement is active
+     */
     characterMovement() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.isAboveGround()) {
             this.playAnimation(this.WALKING_IMAGES);
@@ -254,9 +305,13 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    }
+    };
+    
 
-
+    /**
+     * Handles long idle animation and sleeping sound.
+     * @returns {boolean} True if long idle is active
+     */
     characterLongIdle() {
         if (this.longIdleTimer > 100) {
             this.playOnlyOneAnimation(this.LONG_IDLE_IMAGES, this.stopAnimation(this.LONG_IDLE_IMAGES));
@@ -264,9 +319,10 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    }
+    };
+    
 
-
+    /** Moves the character to the right if allowed. */
     characterMoveRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
             this.moveRight();
@@ -274,9 +330,10 @@ class Character extends MovableObject {
             this.otherDirection = false;
             this.longIdleTimer = 0;
         }
-    }
+    };
+    
 
-
+    /** Moves the character to the left if allowed. */
     characterMoveLeft() {
         if (this.world.keyboard.LEFT && this.x > 100 && !this.isDead()) {
             this.moveLeft();
@@ -284,24 +341,25 @@ class Character extends MovableObject {
             this.otherDirection = true;
             this.longIdleTimer = 0;
         }
-    }
+    };
+    
 
-
+    /** Makes the character jump upward if allowed. */
     characterMoveUp() {
         if (this.world.keyboard.UP && this.y > 0 && !this.isDead() && this.speedY < 3) {
             this.moveUp(10);
             this.world.playSounds("./audio/jump.wav", 0.5);
             this.longIdleTimer = 0;
         }
-    }
+    };
+    
 
-
+    /** Makes the character dive downward if allowed. */
     characterMoveDown() {
         if (this.world.keyboard.DOWN && !this.isDead() && this.speedY > -10) {
-            console.log(this.speedY);
             this.moveDown();
             this.world.playSounds("./audio/jump.wav", 0.5);
             this.longIdleTimer = 0;
         }
-    }
-}   
+    };
+}

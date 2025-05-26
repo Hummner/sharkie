@@ -25,7 +25,7 @@ class Endboss extends MovableObject {
      * Health points.
      * @type {number}
      */
-    hp = 400;
+    hp = 350;
 
     /**
      * Horizontal speed.

@@ -1,3 +1,9 @@
+/**
+ * The current game level instance.
+ * Contains enemies, light elements, background objects, coins, poison bottles, and barricades.
+ * Initialized by the `startLevel()` function.
+ * @type {Level}
+ */
 let level1;
 
 /**

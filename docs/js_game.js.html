@@ -26,16 +26,42 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let canvas;
+            <pre class="prettyprint source linenums"><code>/**
+ * The HTML canvas element where the game is rendered.
+ * @type {HTMLCanvasElement}
+ */
+let canvas;
+
+/**
+ * The main game world instance containing all game objects and logic.
+ * @type {World}
+ */
 let world;
+
+/**
+ * Object that stores the current keyboard input state.
+ * @type {Keyboard}
+ */
 let keyboard = new Keyboard();
+
+/**
+ * Reference to a UI button element (e.g. start, pause, or mute).
+ * @type {HTMLElement}
+ */
 let button;
-let musicMute = getMusicSetup();
+
+/**
+ * Indicates whether the background music is currently muted.
+ * @type {boolean}
+ */
+let musicMute;
+
 
 /** Initializes the game, creates the world and starts the level. */
 function init() {
     canvas = document.getElementById("canvas");
     startLevel();
+    musicMute = getMusicSetup();
     world = new World(canvas, keyboard, musicMute);
 }
 
@@ -189,12 +215,12 @@ function toLegalNotice() {
 function muteSound() {
     if (!musicMute) {
         world.sound.stopMusic();
+        world.sound.setmusicMute();
         musicMute = true;
-        world.musicMute = true;
         saveMusicSetup(true);
     } else {
         musicMute = false;
-        world.musicMute = false;
+        world.sound.setmusicMute();
         world.sound.startMusic();
         saveMusicSetup(false);
     }
@@ -255,10 +281,7 @@ window.addEventListener('load', () => {
     if (isMobileOrTablet()) {
         buttonsForMobile();
     }
-});
-
-
-</code></pre>
+});</code></pre>
         </article>
     </section>
 
@@ -268,13 +291,13 @@ window.addEventListener('load', () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ammo.html">Ammo</a></li><li><a href="Background.html">Background</a></li><li><a href="Barricade.html">Barricade</a></li><li><a href="Character.html">Character</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CoinStatusbar.html">CoinStatusbar</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Floor.html">Floor</a></li><li><a href="JellyFish.html">JellyFish</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="Light.html">Light</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="PoisonAmmo.html">PoisonAmmo</a></li><li><a href="PoisonBottle.html">PoisonBottle</a></li><li><a href="PoisonStatus.html">PoisonStatus</a></li><li><a href="PufferFish.html">PufferFish</a></li><li><a href="Slash.html">Slash</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#backToMain">backToMain</a></li><li><a href="global.html#buttonsForMobile">buttonsForMobile</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#gameEnd">gameEnd</a></li><li><a href="global.html#getMusicSetup">getMusicSetup</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isMobileOrTablet">isMobileOrTablet</a></li><li><a href="global.html#loadCanvas">loadCanvas</a></li><li><a href="global.html#mobileTouchsBtn">mobileTouchsBtn</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#saveMusicSetup">saveMusicSetup</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#startLevel">startLevel</a></li><li><a href="global.html#stopTheGame">stopTheGame</a></li><li><a href="global.html#toIntroduction">toIntroduction</a></li><li><a href="global.html#toLegalNotice">toLegalNotice</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ammo.html">Ammo</a></li><li><a href="Background.html">Background</a></li><li><a href="Barricade.html">Barricade</a></li><li><a href="Character.html">Character</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CoinStatusbar.html">CoinStatusbar</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Floor.html">Floor</a></li><li><a href="JellyFish.html">JellyFish</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="Light.html">Light</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="PoisonAmmo.html">PoisonAmmo</a></li><li><a href="PoisonBottle.html">PoisonBottle</a></li><li><a href="PoisonStatus.html">PoisonStatus</a></li><li><a href="PufferFish.html">PufferFish</a></li><li><a href="Slash.html">Slash</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#backToMain">backToMain</a></li><li><a href="global.html#button">button</a></li><li><a href="global.html#buttonsForMobile">buttonsForMobile</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#gameEnd">gameEnd</a></li><li><a href="global.html#getMusicSetup">getMusicSetup</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isMobileOrTablet">isMobileOrTablet</a></li><li><a href="global.html#keyboard">keyboard</a></li><li><a href="global.html#loadCanvas">loadCanvas</a></li><li><a href="global.html#mobileTouchsBtn">mobileTouchsBtn</a></li><li><a href="global.html#musicMute">musicMute</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#saveMusicSetup">saveMusicSetup</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#startLevel">startLevel</a></li><li><a href="global.html#stopTheGame">stopTheGame</a></li><li><a href="global.html#toIntroduction">toIntroduction</a></li><li><a href="global.html#toLegalNotice">toLegalNotice</a></li><li><a href="global.html#world">world</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 25 2025 19:17:08 GMT+0200 (közép-európai nyári idő)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon May 26 2025 05:53:46 GMT+0200 (közép-európai nyári idő)
 </footer>
 
 <script> prettyPrint(); </script>

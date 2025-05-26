@@ -1,5 +1,19 @@
 class Sound {
     /**
+    * HTML audio element for the background music.
+    * @type {HTMLAudioElement}
+    */
+    music;
+
+    /**
+     * Indicates whether the music is currently muted.
+     * @type {boolean}
+     */
+    musicMute;
+    constructor(musicMute) {
+        this.musicMute = musicMute
+    }
+    /**
      * Plays a sound effect if music is not muted.
      * @param {string} url - Path to the audio file.
      * @param {number} volume - Volume level from 0 to 1.
@@ -10,6 +24,17 @@ class Sound {
             newSound.volume = volume;
             newSound.play();
         }
+    };
+
+
+    /**
+    * Toggles the music mute state.
+    * If music is currently muted, it will be unmuted; if not, it will be muted.
+    * 
+    * @returns {boolean} The new mute state (true if muted, false if unmuted).
+    */
+    setmusicMute() {
+        return this.musicMute = !this.musicMute;
     };
 
 

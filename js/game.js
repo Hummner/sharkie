@@ -1,13 +1,39 @@
+/**
+ * The HTML canvas element where the game is rendered.
+ * @type {HTMLCanvasElement}
+ */
 let canvas;
+
+/**
+ * The main game world instance containing all game objects and logic.
+ * @type {World}
+ */
 let world;
+
+/**
+ * Object that stores the current keyboard input state.
+ * @type {Keyboard}
+ */
 let keyboard = new Keyboard();
+
+/**
+ * Reference to a UI button element (e.g. start, pause, or mute).
+ * @type {HTMLElement}
+ */
 let button;
-let musicMute = getMusicSetup();
+
+/**
+ * Indicates whether the background music is currently muted.
+ * @type {boolean}
+ */
+let musicMute;
+
 
 /** Initializes the game, creates the world and starts the level. */
 function init() {
     canvas = document.getElementById("canvas");
     startLevel();
+    musicMute = getMusicSetup();
     world = new World(canvas, keyboard, musicMute);
 }
 
@@ -161,12 +187,12 @@ function toLegalNotice() {
 function muteSound() {
     if (!musicMute) {
         world.sound.stopMusic();
+        world.sound.setmusicMute();
         musicMute = true;
-        world.musicMute = true;
         saveMusicSetup(true);
     } else {
         musicMute = false;
-        world.musicMute = false;
+        world.sound.setmusicMute();
         world.sound.startMusic();
         saveMusicSetup(false);
     }
@@ -228,5 +254,3 @@ window.addEventListener('load', () => {
         buttonsForMobile();
     }
 });
-
-

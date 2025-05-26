@@ -53,7 +53,7 @@ class World {
     /** Camera offset on the x-axis */
     camera_x = 0;
 
-    sound = new Sound();
+    sound = new Sound(musicMute);
 
 
     /**

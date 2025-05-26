@@ -315,10 +315,8 @@ class Character extends MovableObject {
      */
     sleeping() {
         const now = Date.now();
-        if (now - this.lastSleepingSoundTime >= 4000 && !this.world.musicMute) {
-            this.sleepingEffect = new Audio("./audio/sleeping_short.wav");
-            this.sleepingEffect.volume = 0.2;
-            this.sleepingEffect.play();
+        if (now - this.lastSleepingSoundTime >= 4000) {
+            this.world.sound.playSounds("./audio/sleeping_short.wav", 0.2);
             this.lastSleepingSoundTime = now;
         }
     };

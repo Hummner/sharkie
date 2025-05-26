@@ -186,11 +186,13 @@ function toLegalNotice() {
 /** Toggles game sound on and off and stores the setting in localStorage. */
 function muteSound() {
     if (!musicMute) {
+        document.getElementById("mute_music_icon").src = "./img/icon/mute-157187_1280.png";
         world.sound.stopMusic();
         world.sound.setmusicMute();
         musicMute = true;
         saveMusicSetup(true);
     } else {
+        document.getElementById("mute_music_icon").src = "./img/icon/unmute-157187_1280.png";
         musicMute = false;
         world.sound.setmusicMute();
         world.sound.startMusic();
@@ -204,8 +206,14 @@ function muteSound() {
  */
 function getMusicSetup() {
     let m = localStorage.getItem("musicMute");
-    if (m === "true") return true;
-    if (m === "false") return false;
+    if (m === "true") {
+        document.getElementById("mute_music_icon").src = "./img/icon/mute-157187_1280.png";
+        return true;
+    }
+    document.getElementById("mute_music_icon").src = "./img/icon/unmute-157187_1280.png";
+    if (m === "false") {
+        return false;
+    };
 }
 
 /**

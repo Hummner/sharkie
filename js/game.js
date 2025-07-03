@@ -34,6 +34,7 @@ function init() {
     canvas = document.getElementById("canvas");
     startLevel();
     musicMute = getMusicSetup();
+    setMuteIcon();
     world = new World(canvas, keyboard, musicMute);
 }
 
@@ -189,9 +190,11 @@ function muteSound() {
         world.sound.stopMusic();
         world.sound.setmusicMute();
         musicMute = true;
+        setMuteIcon();
         saveMusicSetup(true);
     } else {
         musicMute = false;
+        setMuteIcon();
         world.sound.setmusicMute();
         world.sound.startMusic();
         saveMusicSetup(false);
@@ -254,3 +257,14 @@ window.addEventListener('load', () => {
         buttonsForMobile();
     }
 });
+
+function setMuteIcon() {
+    let icon = document.getElementById("mute_icon");
+    if (!musicMute) {
+        icon.setAttribute("src", "img/icon/unmute-157187_1280.png")
+    } else {
+
+        icon.setAttribute("src", "img/icon/mute-157187_1280.png")
+    }
+
+}

@@ -231,6 +231,13 @@ function checkOrientation() {
     }
 }
 
+/**
+ * Adds event listeners to handle device orientation and resizing.
+ * The `checkOrientation` function is triggered on:
+ * - window load
+ * - window resize
+ * - device orientation change
+ */
 window.addEventListener('load', checkOrientation);
 window.addEventListener('resize', checkOrientation);
 window.addEventListener('orientationchange', checkOrientation);
@@ -252,19 +259,26 @@ function buttonsForMobile() {
     document.getElementById("mobile_mainMenu").classList.remove("d-none");
 }
 
+/**
+ * Event listener that runs once the window has fully loaded.
+ * If the device is a mobile or tablet, it triggers the buttonsForMobile function.
+ */
 window.addEventListener('load', () => {
     if (isMobileOrTablet()) {
         buttonsForMobile();
     }
 });
 
+/**
+ * Updates the mute icon image based on the current mute state.
+ * If `musicMute` is false, it shows the unmute icon.
+ * If `musicMute` is true, it shows the mute icon.
+ */
 function setMuteIcon() {
     let icon = document.getElementById("mute_icon");
     if (!musicMute) {
-        icon.setAttribute("src", "img/icon/unmute-157187_1280.png")
+        icon.setAttribute("src", "img/icon/unmute-157187_1280.png");
     } else {
-
-        icon.setAttribute("src", "img/icon/mute-157187_1280.png")
+        icon.setAttribute("src", "img/icon/mute-157187_1280.png");
     }
-
 }
